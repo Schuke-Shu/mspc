@@ -1,0 +1,60 @@
+# 本地配置
+local:
+  # 端口
+  port:
+  # nacos配置
+  nacos:
+    host:
+    group:
+    username:
+    password:
+
+# Tomcat
+server:
+  port: ${local.port}
+
+# Spring 配置
+spring:
+  profiles:
+    # 环境配置
+    active: @root.env@
+  application:
+    # 应用名称
+    name: @project.artifactId@
+  cloud:
+    nacos:
+      username: ${local.nacos.username}
+      password: ${local.nacos.password}
+      discovery:
+        # 服务注册地址
+        server-addr: ${local.nacos.host}:8848
+        group: ${local.nacos.group}
+        namespace: ${spring.profiles.active}
+      config:
+        # 配置中心地址
+        server-addr: ${local.nacos.host}:8848
+        # 配置文件格式
+        file-extension: yml
+        group: ${local.nacos.group}
+        namespace: ${spring.profiles.active}
+        extension-configs:
+          - data-id: application.${spring.cloud.nacos.config.file-extension}
+            group: ${local.nacos.group}
+            refresh: true
+
+# 自定义配置项
+common:
+  # 项目信息
+  project-info:
+    # 名称
+    name: @root.name@
+    # 版本
+    version: @project.version@
+    # 描述
+    description: @root.description@
+  # 模块信息
+  module-info:
+    # 名称
+    name: @project.artifactId@
+    # 描述
+    description: @project.description@

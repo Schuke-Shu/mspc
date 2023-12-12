@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cn.mabbit</groupId>
+        <artifactId>mabbit</artifactId>
+        <version>1</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>cn.mabbit.mspc</groupId>
+    <artifactId>mspc-parent</artifactId>
+    <version>1.0</version>
+
+    <name>Mabbit spring project common</name>
+    <description>Mabbit spring 项目通用扩展包</description>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>mspc-bom</module>
+        <module>mspc-core</module>
+        <module>mspc-data</module>
+        <module>mspc-redis</module>
+        <module>mspc-security</module>
+        <module>mspc-test</module>
+        <module>test</module>
+    </modules>
+
+    <properties>
+        <mspc.groupId>cn.mabbit.mspc</mspc.groupId>
+
+        <mdk4j.version>1.0</mdk4j.version>
+        <lombok.version>1.18.30</lombok.version>
+
+        <spring-boot.version>3.2.0</spring-boot.version>
+
+        <fastjson.version>2.0.25</fastjson.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <knife4j.version>4.3.0</knife4j.version>
+        <mybatis.version>3.0.3</mybatis.version>
+        <mysql.version>8.0.28</mysql.version>
+        <pagehelper.version>2.0.0</pagehelper.version>
+        <google.protobuf.version>3.21.12</google.protobuf.version>
+        <snakeyaml.version>2.0</snakeyaml.version>
+    </properties>
+
+    <dependencies>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <!-- Spring Boot configuration processor -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Project Build Management -->
+            <dependency>
+                <groupId>${mspc.groupId}</groupId>
+                <artifactId>mspc-bom</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${mspc.groupId}</groupId>
+                <artifactId>mspc-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${mspc.groupId}</groupId>
+                <artifactId>mspc-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${mspc.groupId}</groupId>
+                <artifactId>mspc-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${mspc.groupId}</groupId>
+                <artifactId>mspc-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${mspc.groupId}</groupId>
+                <artifactId>mspc-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Mdk4j -->
+            <dependency>
+                <groupId>cn.mabbit.mdk4j</groupId>
+                <artifactId>mdk4j-bom</artifactId>
+                <version>${mdk4j.version}</version>
+            </dependency>
+
+            <!-- Spring-Boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <type>pom</type>
+                <version>${spring-boot.version}</version>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Alibaba Fastjson -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!-- JJWT（Java json web token） -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <!-- Knife4j -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <!-- Mybatis -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <!-- Mysql -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- PageHelper -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+
+            <!-- Google Protobuf -->
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${google.protobuf.version}</version>
+            </dependency>
+
+            <!-- Snake YAML -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

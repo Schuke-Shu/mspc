@@ -1,0 +1,47 @@
+#server:
+#  port: 10086
+
+# Spring 配置
+spring:
+  profiles:
+    active: @root.env@
+  application:
+    name: ${common.project-info.name}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?allowMultiQueries=true&useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2b8
+    username: root
+    password: ypt123
+  mvc:
+    servlet:
+      # 关闭懒加载
+      load-on-startup: 1
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+# MyBatis 配置
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+
+# knife4j 文档配置
+knife4j:
+  # 开启增强模式
+  enable: true
+
+# 自定义配置项
+common:
+  core:
+    # 项目信息
+    project-info:
+      # 名称
+      name: @root.name@
+      # 版本
+      version: @project.version@
+      # 描述
+      description: @root.description@
+    # 模块信息
+    module-info:
+      # 名称
+      name: @project.artifactId@
+      # 描述
+      description: @project.description@

@@ -1,0 +1,7 @@
+#server:
+#  port: 10086
+
+# api 文档配置
+springdoc:
+  api-docs:
+    enabled: true
