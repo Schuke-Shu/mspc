@@ -1,6 +1,6 @@
 package cn.mabbit.test.pojo.dto;
 
-import cn.mabbit.mspc.data.pojo.PageDTO;
+import cn.mabbit.mspc.data.pojo.BasePageDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import lombok.Setter;
 @Schema(title = "测试DTO")
 @Getter
 @Setter
-public class TestDTO extends PageDTO
+public class TestDTO extends BasePageDTO
 {
     @Schema(title = "测试")
     String test;

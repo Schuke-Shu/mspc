@@ -46,6 +46,11 @@ public class GlobalParams
         }
     }
 
+    public static LocalDateTime getRequestTime()
+    {
+        return (LocalDateTime) get(KeyConsts.REQUEST_TIME);
+    }
+
     private static Map<String, Object> local()
     {
         return GLOBAL_PARAM.get();
