@@ -1,4 +1,4 @@
-package cn.mabbit.mspc.data.interceptor;
+package cn.mabbit.mspc.data;
 
 import cn.mabbit.mspc.core.consts.KeyConsts;
 import cn.mabbit.mspc.core.web.GlobalParams;

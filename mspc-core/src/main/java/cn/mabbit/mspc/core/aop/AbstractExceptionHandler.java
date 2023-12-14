@@ -4,7 +4,7 @@ import cn.mabbit.mdk4j.core.util.ClassUtil;
 import cn.mabbit.mdk4j.core.util.StringUtil;
 import cn.mabbit.mspc.core.consts.GlobalConsts;
 import cn.mabbit.mspc.core.exception.ProjectException;
-import cn.mabbit.mspc.core.web.entity.JsonResult;
+import cn.mabbit.mspc.core.web.JsonResult;
 import cn.mabbit.mspc.core.exception.BaseException;
 import cn.mabbit.mspc.core.exception.ServiceException;
 import jakarta.validation.ConstraintViolationException;
@@ -43,6 +43,7 @@ import static cn.mabbit.mspc.core.web.R.fail;
  * }
  * }</pre></p>
  *
+ * @see DefaultGlobalExceptionHandler
  * @author 一只枫兔
  * @Date 2023/10/09 18:15
  */
@@ -65,7 +66,8 @@ public abstract class AbstractExceptionHandler
     public JsonResult<Object> handleDatabaseException(Throwable e)
     {
 //        printStack(e);
-        log.debug("-- Database error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
+        if (log.isDebugEnabled())
+            log.debug("-- Database error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
         return fail(ERR_SYSTEM);
     }
 
@@ -73,8 +75,9 @@ public abstract class AbstractExceptionHandler
     public JsonResult<Object> handleValidException(ConstraintViolationException e)
     {
 //        printStack(e);
-        StringJoiner msg = new StringJoiner(", ", "[", "]");
         if (log.isDebugEnabled())
+        {
+            StringJoiner msg = new StringJoiner(", ", "[", "]");
             // TODO Mdk4j StringJoiner
             e.getConstraintViolations()
                     .forEach(
@@ -87,7 +90,9 @@ public abstract class AbstractExceptionHandler
                                     )
                             )
                     );
-        log.debug("-- Valid error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), msg);
+            log.debug("-- Valid error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), msg);
+        }
+
         return fail(ERR_INVALID);
     }
 
@@ -100,7 +105,8 @@ public abstract class AbstractExceptionHandler
     public JsonResult<Object> handleValidException(Throwable e)
     {
 //        printStack(e);
-        log.debug("-- Valid error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
+        if (log.isDebugEnabled())
+            log.debug("-- Valid error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
         return fail(ERR_INVALID);
     }
 
@@ -108,8 +114,13 @@ public abstract class AbstractExceptionHandler
     public JsonResult<Object> handleProjectException(ProjectException e)
     {
 //        printStack(e);
-        log.error("Project error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
-        detailDebug(e, log);
+
+        if (log.isDebugEnabled())
+        {
+            log.error("Project error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
+            detailDebug(e, log);
+        }
+
         return fail(ERR_SYSTEM);
     }
 
@@ -117,7 +128,7 @@ public abstract class AbstractExceptionHandler
     public JsonResult<Object> handleServiceException(ServiceException e)
     {
 //        printStack(e);
-        detailDebug(e, log);
+        if (log.isDebugEnabled()) detailDebug(e, log);
         return fail(e);
     }
 
@@ -129,8 +140,36 @@ public abstract class AbstractExceptionHandler
     }
 
     @ExceptionHandler(Throwable.class)
-    public JsonResult<Object> handleUnknownError(Throwable e)
+    public JsonResult<Object> handleUnknownException(Throwable e)
             throws RuntimeException
+    {
+        handleUnknownError(e);
+        printStack(e);
+        return fail(ERR_UNKNOWN);
+    }
+
+    /**
+     * log 等级为 debug 时打印异常 detail 信息
+     *
+     * @param e {@link BaseException}
+     */
+    protected static void detailDebug(BaseException e, Logger l)
+    {
+        if (l.isDebugEnabled() && StringUtil.notBlank(e.getDetail())) l.debug("Error detail: {}", e.getDetail());
+    }
+
+    protected void printStack(Throwable e)
+    {
+        //noinspection CallToPrintStackTrace
+        e.printStackTrace();
+    }
+
+    /**
+     * 处理未知异常
+     *
+     * @param e 未知异常
+     */
+    protected void handleUnknownError(Throwable e)
     {
         File errorFile;
         try (
@@ -157,28 +196,7 @@ public abstract class AbstractExceptionHandler
                     ex.getMessage()
             );
         }
-
-        printStack(e);
-        return fail(ERR_UNKNOWN);
     }
-
-    /**
-     * log 等级为 debug 时打印异常 detail 信息
-     *
-     * @param e {@link BaseException}
-     */
-    protected static void detailDebug(BaseException e, Logger l)
-    {
-        if (StringUtil.notBlank(e.getDetail())) l.debug("Error detail: {}", e.getDetail());
-    }
-
-    protected void printStack(Throwable e)
-    {
-        //noinspection CallToPrintStackTrace
-        e.printStackTrace();
-    }
-
-    private static final String ERROR_FILENAME_PATTERN = "yyyy-MM-dd_HH.mm.ss.SSS";
 
     private File errorFile()
             throws IOException
@@ -198,9 +216,7 @@ public abstract class AbstractExceptionHandler
                              "%s.obj",
                              LocalDateTime
                                      .now()
-                                     .format(
-                                             DateTimeFormatter.ofPattern(ERROR_FILENAME_PATTERN)
-                                     )
+                                     .format(DateTimeFormatter.ofPattern(GlobalConsts.ERROR_FILENAME_PATTERN))
                      )
              )
         )

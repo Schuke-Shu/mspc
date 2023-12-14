@@ -1,7 +1,8 @@
 package cn.mabbit.test.controller;
 
-import cn.mabbit.mspc.core.web.annotation.Api;
-import cn.mabbit.mspc.data.util.PageUtil;
+import cn.mabbit.mspc.core.exception.ProjectException;
+import cn.mabbit.mspc.core.web.Api;
+import cn.mabbit.mspc.data.PageUtil;
 import cn.mabbit.test.pojo.dto.TestDTO;
 import cn.mabbit.test.pojo.vo.TestVO;
 import cn.mabbit.test.service.TestService;
@@ -46,7 +47,7 @@ public class TestController
     @GetMapping("/void")
     public void test()
     {
-//        throw new ProjectException("test");
+        throw new ProjectException("test");
     }
 
     @GetMapping("/page")

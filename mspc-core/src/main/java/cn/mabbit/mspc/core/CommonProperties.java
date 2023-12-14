@@ -1,4 +1,4 @@
-package cn.mabbit.mspc.core.properties;
+package cn.mabbit.mspc.core;
 
 import lombok.Getter;
 import lombok.Setter;

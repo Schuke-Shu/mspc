@@ -5,8 +5,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -25,7 +23,6 @@ import java.util.Set;
  * @see GlobalParams#handleParams(ProceedingJoinPoint)
  */
 @Aspect
-@Order(Ordered.HIGHEST_PRECEDENCE + 1)
 @Component
 public class GlobalParams
 {
@@ -39,19 +36,14 @@ public class GlobalParams
         map.put(KeyConsts.REQUEST_TIME, LocalDateTime.now());
         GLOBAL_PARAM.set(map);
 
-        Object result;
         try
         {
-            result = point.proceed();
+            return point.proceed();
         }
-        catch (Throwable e)
+        finally
         {
             GLOBAL_PARAM.remove();
-            throw e;
         }
-
-        GLOBAL_PARAM.remove();
-        return result;
     }
 
     private static Map<String, Object> local()

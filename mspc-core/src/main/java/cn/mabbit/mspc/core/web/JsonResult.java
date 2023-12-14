@@ -1,4 +1,4 @@
-package cn.mabbit.mspc.core.web.entity;
+package cn.mabbit.mspc.core.web;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

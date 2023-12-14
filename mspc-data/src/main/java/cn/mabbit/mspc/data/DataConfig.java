@@ -1,8 +1,5 @@
-package cn.mabbit.mspc.data.config;
+package cn.mabbit.mspc.data;
 
-import cn.mabbit.mspc.data.interceptor.TimeInterceptor;
-import cn.mabbit.mspc.data.properties.DataProperties;
-import cn.mabbit.mspc.data.util.PageUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.Setter;
 import org.apache.ibatis.session.SqlSessionFactory;

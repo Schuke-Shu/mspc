@@ -1,8 +1,6 @@
 package cn.mabbit.mspc.core.web;
 
 import cn.mabbit.mspc.core.consts.ServiceCodePool;
-import cn.mabbit.mspc.core.web.entity.JsonResult;
-import cn.mabbit.mspc.core.web.entity.ServiceCode;
 import cn.mabbit.mspc.core.exception.ServiceException;
 
 /**

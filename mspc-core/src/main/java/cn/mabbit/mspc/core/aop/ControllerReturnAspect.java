@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.function.Consumer;
 
 /**
  * <h2>Controller 层统一返回值 AOP</h2>
@@ -35,6 +34,7 @@ public class ControllerReturnAspect
     {
         Object result = point.proceed();
 
+        System.out.println("return");
         responseJson(R.ok(result));
         return null;
     }

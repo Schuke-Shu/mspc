@@ -1,6 +1,6 @@
 package cn.mabbit.mspc.core.consts;
 
-import cn.mabbit.mspc.core.web.entity.ServiceCode;
+import cn.mabbit.mspc.core.web.ServiceCode;
 
 /**
  * <h2>业务状态码池</h2>

@@ -1,4 +1,7 @@
-package cn.mabbit.mspc.core.annotation;
+package cn.mabbit.mspc.log;
+
+import cn.mabbit.mspc.log.enums.BusinessType;
+import cn.mabbit.mspc.log.enums.OperatorType;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -16,31 +19,22 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(METHOD)
 @Retention(RUNTIME)
 @Documented
-public @interface Log // TODO 日志处理
+public @interface Log
 {
     /**
-     * @return 标题
+     * @return 业务模块
      */
-    String title() default "log";
+    String title() default "";
 
     /**
      * @return 描述
      */
     String description() default "";
 
+    BusinessType businessType() default BusinessType.OTHER;
+
     /**
      * @return 操作类型
      */
-    OperationType operation();
-
-    /**
-     * 操作类型
-     */
-    enum OperationType
-    {
-        SAVE,
-        REMOVE,
-        EDIT,
-        QUERY,
-    }
+    OperatorType operation() default OperatorType.ADMIN;
 }

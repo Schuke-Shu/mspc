@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 /**
  * <h2>默认全局异常处理器</h2>
  *
+ * <p>不需要扩展异常处理器时可以不自己创建全局异常处理器</p>
+ *
  * @author 一只枫兔
  * @Date 2023-11-28 11:06
  */

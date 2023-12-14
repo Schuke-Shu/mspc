@@ -1,4 +1,4 @@
-package cn.mabbit.mspc.core.config;
+package cn.mabbit.mspc.core;
 
 import cn.mabbit.mspc.core.util.SpringUtil;
 import org.springframework.beans.BeansException;

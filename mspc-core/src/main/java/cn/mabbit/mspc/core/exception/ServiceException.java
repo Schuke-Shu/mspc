@@ -1,7 +1,7 @@
 package cn.mabbit.mspc.core.exception;
 
 import cn.mabbit.mspc.core.consts.ServiceCodePool;
-import cn.mabbit.mspc.core.web.entity.ServiceCode;
+import cn.mabbit.mspc.core.web.ServiceCode;
 import lombok.Getter;
 
 import java.io.Serial;

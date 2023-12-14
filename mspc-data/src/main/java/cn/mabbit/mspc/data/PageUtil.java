@@ -1,4 +1,4 @@
-package cn.mabbit.mspc.data.util;
+package cn.mabbit.mspc.data;
 
 import cn.mabbit.mdk4j.core.lang.Assert;
 import cn.mabbit.mdk4j.core.lang.function.Action;

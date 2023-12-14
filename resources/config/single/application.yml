@@ -6,7 +6,7 @@ spring:
   profiles:
     active: @root.env@
   application:
-    name: ${common.project-info.name}
+    name: ${common.core.project-info.name}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test?allowMultiQueries=true&useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2b8
@@ -27,6 +27,13 @@ mybatis:
 knife4j:
   # 开启增强模式
   enable: true
+
+# 日志配置
+logging:
+  # 日志文件配置
+  file:
+    # 文件路径
+    path: /log
 
 # 自定义配置项
 common:

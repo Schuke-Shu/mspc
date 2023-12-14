@@ -1,4 +1,4 @@
-package cn.mabbit.mspc.core.web.annotation;
+package cn.mabbit.mspc.core.web;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.RequestMapping;

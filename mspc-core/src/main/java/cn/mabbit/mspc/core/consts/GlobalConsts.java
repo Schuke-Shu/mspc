@@ -16,4 +16,8 @@ public interface GlobalConsts
      * 存储异常对象文件的文件夹地址
      */
     String ERROR_FILE_DIR = "log/error";
+    /**
+     * 异常文件名
+     */
+    String ERROR_FILENAME_PATTERN = "yyyy-MM-dd_HH.mm.ss.SSS";
 }

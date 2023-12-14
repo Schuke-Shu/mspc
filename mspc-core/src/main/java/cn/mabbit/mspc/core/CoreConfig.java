@@ -1,6 +1,5 @@
-package cn.mabbit.mspc.core.config;
+package cn.mabbit.mspc.core;
 
-import cn.mabbit.mspc.core.properties.CommonProperties;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.hibernate.validator.HibernateValidator;

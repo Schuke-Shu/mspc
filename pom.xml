@@ -24,6 +24,7 @@
         <module>mspc-bom</module>
         <module>mspc-core</module>
         <module>mspc-data</module>
+        <module>mspc-log</module>
         <module>mspc-redis</module>
         <module>mspc-security</module>
         <module>mspc-test</module>
@@ -80,6 +81,11 @@
             <dependency>
                 <groupId>${mspc.groupId}</groupId>
                 <artifactId>mspc-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${mspc.groupId}</groupId>
+                <artifactId>mspc-log</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

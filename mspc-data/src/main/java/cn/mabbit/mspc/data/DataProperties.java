@@ -1,4 +1,4 @@
-package cn.mabbit.mspc.data.properties;
+package cn.mabbit.mspc.data;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = DataProperties.PREFIX)
+@ConfigurationProperties(DataProperties.PREFIX)
 public class DataProperties
         implements Serializable
 {
