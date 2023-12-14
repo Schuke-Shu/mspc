@@ -1,2 +1,2 @@
 cn.mabbit.mspc.log.LogAspect
-cn.mabbit.mspc.log.DefaultLogServiceImpl
+cn.mabbit.mspc.log.LogServiceImpl

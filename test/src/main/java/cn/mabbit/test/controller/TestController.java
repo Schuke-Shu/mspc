@@ -1,7 +1,7 @@
 package cn.mabbit.test.controller;
 
 import cn.mabbit.mspc.core.exception.ProjectException;
-import cn.mabbit.mspc.core.web.Api;
+import cn.mabbit.mspc.core.web.Web;
 import cn.mabbit.mspc.data.PageUtil;
 import cn.mabbit.test.pojo.dto.TestDTO;
 import cn.mabbit.test.pojo.vo.TestVO;
@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -23,8 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author 一只枫兔
  * @Date 2023/11/9 10:14
  */
-@Validated
-@Api(path = "/test")
+@Web(path = "/test")
 @Tag(name = "测试")
 @Setter(onMethod_ = @Autowired)
 public class TestController

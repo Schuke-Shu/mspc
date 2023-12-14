@@ -1,8 +1,8 @@
 package cn.mabbit.mspc.core.web;
 
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.annotation.Documented;
@@ -13,9 +13,11 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * <h2>网络接口注解</h2>
+ * <h2>业务模块注解</h2>
  *
- * <p>组合了{@link RestController}和{@link RequestMapping}</p>
+ * <p>标记 controller 层的类</p>
+ *
+ * <p>组合了 {@link Validated}、{@link RestController}、{@link RequestMapping}</p>
  *
  * @author 一只枫兔
  * @Date 2023/11/3 10:01
@@ -23,9 +25,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(TYPE)
 @Retention(RUNTIME)
 @Documented
+@Validated
 @RestController
 @RequestMapping
-public @interface Api
+public @interface Web
 {
     @AliasFor(annotation = RestController.class)
     String value() default "";
@@ -35,19 +38,4 @@ public @interface Api
 
     @AliasFor(annotation = RequestMapping.class)
     String name() default "";
-
-    @AliasFor(annotation = RequestMapping.class)
-    RequestMethod[] method() default {};
-
-    @AliasFor(annotation = RequestMapping.class)
-    String[] params() default {};
-
-    @AliasFor(annotation = RequestMapping.class)
-    String[] headers() default {};
-
-    @AliasFor(annotation = RequestMapping.class)
-    String[] consumes() default {};
-
-    @AliasFor(annotation = RequestMapping.class)
-    String[] produces() default {};
 }

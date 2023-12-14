@@ -13,7 +13,6 @@ import java.util.List;
  * @author 一只枫兔
  * @Date 2023-11-29 9:46
  */
-@SuppressWarnings("unchecked")
 public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
 {
     /**
@@ -27,10 +26,10 @@ public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
     /**
      * 批量插入数据
      *
-     * @param es 实体数据数组
+     * @param list 实体数据数组
      * @return 新增成功数量
      */
-    int saveBatch(E... es);
+    int saveBatch(List<E> list);
 
     /**
      * 根据主键删除一条数据
@@ -43,10 +42,10 @@ public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
     /**
      * 根据主键数组批量删除数据
      *
-     * @param ks 主键数组
+     * @param list 主键数组
      * @return 删除成功数量
      */
-    int removeBatch(K... ks);
+    int removeBatch(List<K> list);
 
     /**
      * 编辑一条数据
@@ -82,10 +81,10 @@ public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
     /**
      * 根据主键列表列出数据
      *
-     * @param ks 主键列表
+     * @param list 主键列表
      * @return 实体数据列表
      */
-    List<E> listByIds(K... ks);
+    List<E> listByIds(List<K> list);
 
     /**
      * @return 表中数据总量

@@ -34,7 +34,6 @@ public class ControllerReturnAspect
     {
         Object result = point.proceed();
 
-        System.out.println("return");
         responseJson(R.ok(result));
         return null;
     }

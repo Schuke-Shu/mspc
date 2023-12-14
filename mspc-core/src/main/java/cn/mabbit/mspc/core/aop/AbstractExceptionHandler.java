@@ -136,6 +136,7 @@ public abstract class AbstractExceptionHandler
     public JsonResult<Object> handleNoResourceFoundException(NoResourceFoundException e)
     {
 //        printStack(e);
+        log.debug("Error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
         return fail(ERR_NOT_FOUND);
     }
 
@@ -182,7 +183,7 @@ public abstract class AbstractExceptionHandler
         {
             oos.writeObject(e);
             log.error(
-                    "-- Unhandled error: {}\nmsg:\n{}\nPlease check the exception-object file: {} in error directory: {}",
+                    "-- Unhandled error: {}\nmsg:\n{}\nPlease check the exception-object file: [{}] in error directory: {}",
                     ClassUtil.getTypeName(e),
                     e.getMessage(),
                     errorFile.getName(),
