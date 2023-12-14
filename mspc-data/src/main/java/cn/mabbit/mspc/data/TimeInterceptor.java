@@ -1,6 +1,5 @@
 package cn.mabbit.mspc.data;
 
-import cn.mabbit.mspc.core.consts.KeyConsts;
 import cn.mabbit.mspc.core.web.GlobalParams;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -52,18 +51,6 @@ public class TimeInterceptor
      */
     private static final String FIELD_MODIFIED = "modified_time";
     /**
-     * SQL语句类型：其它（暂无实际用途）
-     */
-    private static final int SQL_TYPE_OTHER = 0;
-    /**
-     * SQL语句类型：INSERT
-     */
-    private static final int SQL_TYPE_INSERT = 1;
-    /**
-     * SQL语句类型：UPDATE
-     */
-    private static final int SQL_TYPE_UPDATE = 2;
-    /**
      * 查找SQL类型的正则表达式：INSERT
      */
     private static final Pattern SQL_TYPE_PATTERN_INSERT = Pattern.compile("^insert\\s", Pattern.CASE_INSENSITIVE);
@@ -105,8 +92,8 @@ public class TimeInterceptor
 
         // 生成新 sql
         String newSql = null;
-        if (SQL_TYPE_PATTERN_INSERT.matcher(sql).find()) newSql = getCreateSql(sql);
-        if (SQL_TYPE_PATTERN_UPDATE.matcher(sql).find()) newSql = getModifiedSql(sql);
+        if (SQL_TYPE_PATTERN_INSERT.matcher(sql).find()) newSql = makeCreateSql(sql);
+        if (SQL_TYPE_PATTERN_UPDATE.matcher(sql).find()) newSql = makeModifiedSql(sql);
 
         if (newSql != null)
         {
@@ -118,7 +105,7 @@ public class TimeInterceptor
         return invocation.proceed();
     }
 
-    private String getCreateSql(String sqlStatement)
+    private String makeCreateSql(String sqlStatement)
     {
         log.debug("Origin sql is [INSERT], add 'create_time'");
 
@@ -148,7 +135,7 @@ public class TimeInterceptor
         // 定义查找参数值位置的 正则表达 “)”
         Matcher paramPositionMatcher = Pattern.compile("\\)").matcher(sql);
         // 从 ) values ( 的后面位置 end 开始查找 结束括号的位置
-        String param = ", '" + GlobalParams.get(KeyConsts.REQUEST_TIME) + "'";
+        String param = ", '" + GlobalParams.getRequestTime() + "'";
         int position = end + fieldNames.length();
         while (paramPositionMatcher.find(position))
         {
@@ -167,7 +154,7 @@ public class TimeInterceptor
         return sql.toString();
     }
 
-    private String getModifiedSql(String sqlStatement)
+    private String makeModifiedSql(String sqlStatement)
     {
         log.debug("Origin sql is [UPDATE], add 'modified_time'");
 
@@ -181,7 +168,8 @@ public class TimeInterceptor
         Matcher matcher = SQL_STATEMENT_PATTERN_WHERE.matcher(sql);
         // 查找 where 子句的位置
         if (!matcher.find()) return null;
-        sql.insert(matcher.start(), ", " + FIELD_MODIFIED + "='" + GlobalParams.get(KeyConsts.REQUEST_TIME) + "'");
+        sql.insert(matcher.start(), ", " + FIELD_MODIFIED + "='" + GlobalParams.getRequestTime() + "'");
+
         return sql.toString();
     }
 
@@ -235,18 +223,5 @@ public class TimeInterceptor
         Field field = BoundSql.class.getDeclaredField(SQL_FIELD);
         field.setAccessible(true);
         field.set(sql, value);
-    }
-
-    /**
-     * 获取原 SQL 语句类型
-     *
-     * @param sql 原 SQL 语句
-     * @return SQL 语句类型
-     */
-    private int typeOf(String sql)
-    {
-        if (SQL_TYPE_PATTERN_INSERT.matcher(sql).find()) return SQL_TYPE_INSERT;
-        if (SQL_TYPE_PATTERN_UPDATE.matcher(sql).find()) return SQL_TYPE_UPDATE;
-        return SQL_TYPE_OTHER;
     }
 }
