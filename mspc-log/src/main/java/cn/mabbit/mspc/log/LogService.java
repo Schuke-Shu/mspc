@@ -20,16 +20,21 @@ public interface LogService
      * 根据 id 删除日志
      * @param id id
      */
-    void removeById(Long id);
+    void remove(Long id);
 
     /**
      * 根据 id 列表批量删除日志
      * @param ids id 列表
      */
-    void removeByIds(List<Long> ids);
+    void removeBatch(List<Long> ids);
 
     /**
      * 清空日志
      */
     void clear();
+
+    /**
+     * 导出日志
+     */
+    void export();
 }

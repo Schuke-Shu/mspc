@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * <h2></h2>
+ * <h2>日志 AOP</h2>
  *
  * @author 一只枫兔
  * @Date 2023-12-13 12:44
