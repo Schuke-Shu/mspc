@@ -6,7 +6,7 @@ spring:
   profiles:
     active: @root.env@
   application:
-    name: ${common.core.project-info.name}
+    name: ${common.core.project.name}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test?allowMultiQueries=true&useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2b8
@@ -39,7 +39,7 @@ logging:
 common:
   core:
     # 项目信息
-    project-info:
+    project:
       # 名称
       name: @root.name@
       # 版本
@@ -47,7 +47,7 @@ common:
       # 描述
       description: @root.description@
     # 模块信息
-    module-info:
+    module:
       # 名称
       name: @project.artifactId@
       # 描述

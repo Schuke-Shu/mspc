@@ -1,5 +1,3 @@
-cn.mabbit.mspc.core.aop.ControllerReturnAspect
-cn.mabbit.mspc.core.aop.DefaultGlobalExceptionHandler
+cn.mabbit.mspc.core.ApiAspect
+cn.mabbit.mspc.core.DefaultGlobalExceptionHandler
 cn.mabbit.mspc.core.CoreConfig
-cn.mabbit.mspc.core.UtilConfig
-cn.mabbit.mspc.core.web.GlobalParams

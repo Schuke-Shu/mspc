@@ -7,7 +7,6 @@ import cn.mabbit.mspc.data.pojo.PageDTO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -17,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
  * @Date 2023-11-28 16:36
  */
 @Slf4j
-@Setter
 public abstract class PageUtil
 {
     private static boolean DEFAULT_COUNT;
@@ -134,7 +132,7 @@ public abstract class PageUtil
     {
         Assert.state(
                 pageNum != null && pageSize != null,
-                () -> new ProjectException("The pagination parameter is missing in GlobalParams")
+                () -> new ProjectException("The pagination parameter must not be null")
         );
 
         Page<T> page = PageHelper.startPage(pageNum, pageSize, count, reasonable, pageSizeZero);

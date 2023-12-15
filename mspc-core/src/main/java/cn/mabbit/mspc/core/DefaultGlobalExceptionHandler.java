@@ -1,4 +1,4 @@
-package cn.mabbit.mspc.core.aop;
+package cn.mabbit.mspc.core;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

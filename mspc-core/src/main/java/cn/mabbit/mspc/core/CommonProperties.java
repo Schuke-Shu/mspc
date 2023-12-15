@@ -27,15 +27,15 @@ public class CommonProperties
     /**
      * 项目信息
      */
-    private ProjectInfo projectInfo = new ProjectInfo();
+    private ProjectProperties project = new ProjectProperties();
     /**
      * 模块信息
      */
-    private ModuleInfo moduleInfo = new ModuleInfo();
+    private ModuleProperties module = new ModuleProperties();
 
     @Getter
     @Setter
-    public static class ProjectInfo
+    public static class ProjectProperties
             implements Serializable
     {
         @Serial
@@ -57,7 +57,7 @@ public class CommonProperties
 
     @Getter
     @Setter
-    public static class ModuleInfo
+    public static class ModuleProperties
             implements Serializable
     {
         @Serial

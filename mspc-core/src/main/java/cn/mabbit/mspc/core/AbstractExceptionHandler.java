@@ -1,4 +1,4 @@
-package cn.mabbit.mspc.core.aop;
+package cn.mabbit.mspc.core;
 
 import cn.mabbit.mdk4j.core.util.ClassUtil;
 import cn.mabbit.mdk4j.core.util.StringUtil;
