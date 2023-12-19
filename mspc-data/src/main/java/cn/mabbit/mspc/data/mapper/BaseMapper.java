@@ -3,6 +3,7 @@ package cn.mabbit.mspc.data.mapper;
 import cn.mabbit.mspc.data.pojo.BasePO;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
      * @param list 实体数据数组
      * @return 新增成功数量
      */
-    int saveBatch(List<E> list);
+    int saveBatch(Collection<E> list);
 
     /**
      * 根据主键删除一条数据
@@ -45,7 +46,7 @@ public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
      * @param list 主键数组
      * @return 删除成功数量
      */
-    int removeBatch(List<K> list);
+    int removeBatch(Collection<K> list);
 
     /**
      * 编辑一条数据
@@ -84,7 +85,7 @@ public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
      * @param list 主键列表
      * @return 实体数据列表
      */
-    List<E> listByIds(List<K> list);
+    List<E> listByIds(Collection<K> list);
 
     /**
      * @return 表中数据总量

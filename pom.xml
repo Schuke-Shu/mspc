@@ -25,7 +25,7 @@
         <module>mspc-core</module>
         <module>mspc-data</module>
         <module>mspc-log</module>
-        <module>mspc-redis</module>
+        <module>mspc-cache</module>
         <module>mspc-security</module>
         <module>mspc-test</module>
         <module>test</module>
@@ -40,6 +40,7 @@
         <spring-boot.version>3.2.0</spring-boot.version>
 
         <fastjson.version>2.0.25</fastjson.version>
+        <jedis.version>5.1.0</jedis.version>
         <jjwt.version>0.9.1</jjwt.version>
         <knife4j.version>4.3.0</knife4j.version>
         <mybatis.version>3.0.3</mybatis.version>
@@ -75,6 +76,11 @@
             </dependency>
             <dependency>
                 <groupId>${mspc.groupId}</groupId>
+                <artifactId>mspc-cache</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${mspc.groupId}</groupId>
                 <artifactId>mspc-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -86,11 +92,6 @@
             <dependency>
                 <groupId>${mspc.groupId}</groupId>
                 <artifactId>mspc-log</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${mspc.groupId}</groupId>
-                <artifactId>mspc-redis</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -125,6 +126,13 @@
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+
+            <!-- Jedis -->
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${jedis.version}</version>
             </dependency>
 
             <!-- JJWT（Java json web token） -->

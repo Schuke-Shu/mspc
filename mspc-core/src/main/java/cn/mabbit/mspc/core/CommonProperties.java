@@ -2,6 +2,7 @@ package cn.mabbit.mspc.core;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.io.Serial;
@@ -15,6 +16,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@ToString
 @ConfigurationProperties(CommonProperties.PREFIX)
 public class CommonProperties
         implements Serializable

@@ -22,36 +22,21 @@ public class NullLogServiceImpl
 {
     public NullLogServiceImpl()
     {
-        log.warn("No [LogServiceImpl] has been find, the logging feature will not take effect");
+        log.warn("No [LogServiceImpl] has been found, the logging feature will not take effect");
     }
 
     @Override
-    public void record(SysLog sysLog)
-    {
-        throw new NullPointerException();
-    }
+    public void record(SysLog sysLog) {}
 
     @Override
-    public void remove(Long id)
-    {
-        throw new NullPointerException();
-    }
+    public void remove(Long id) {}
 
     @Override
-    public void removeBatch(List<Long> ids)
-    {
-        throw new NullPointerException();
-    }
+    public void removeBatch(List<Long> ids) {}
 
     @Override
-    public void clear()
-    {
-        throw new NullPointerException();
-    }
+    public void clear() {}
 
     @Override
-    public void export()
-    {
-        throw new NullPointerException();
-    }
+    public void export() {}
 }

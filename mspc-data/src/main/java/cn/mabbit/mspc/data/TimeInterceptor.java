@@ -100,7 +100,7 @@ public class TimeInterceptor
         if (newSql != null)
         {
             log.debug("New sql: {}", newSql);
-            reflect(boundSql, newSql);
+            reflect(boundSql, newSql); // TODO Mdk4j 反射工具
         }
 
         // 放行
