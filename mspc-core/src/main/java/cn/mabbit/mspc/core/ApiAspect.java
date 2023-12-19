@@ -70,6 +70,7 @@ public class ApiAspect
                     JSON.toJSONString(data)
             );
             writer.flush();
+            log.trace("Response: {}", data);
         }
         catch (IOException e)
         {

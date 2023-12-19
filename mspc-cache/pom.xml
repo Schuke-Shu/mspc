@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cn.mabbit.mspc</groupId>
+        <artifactId>mspc-parent</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>mspc-cache</artifactId>
+
+    <description>缓存扩展包</description>
+
+    <dependencies>
+        <!-- Mspc data -->
+        <dependency>
+            <groupId>${mspc.groupId}</groupId>
+            <artifactId>mspc-data</artifactId>
+        </dependency>
+
+        <!-- Jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+
+        <!-- Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.lettuce</groupId>
+                    <artifactId>lettuce-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+</project>

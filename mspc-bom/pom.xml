@@ -17,6 +17,10 @@
     <dependencies>
         <dependency>
             <groupId>${mspc.groupId}</groupId>
+            <artifactId>mspc-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${mspc.groupId}</groupId>
             <artifactId>mspc-core</artifactId>
         </dependency>
         <dependency>
@@ -26,10 +30,6 @@
         <dependency>
             <groupId>${mspc.groupId}</groupId>
             <artifactId>mspc-log</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${mspc.groupId}</groupId>
-            <artifactId>mspc-redis</artifactId>
         </dependency>
         <dependency>
             <groupId>${mspc.groupId}</groupId>

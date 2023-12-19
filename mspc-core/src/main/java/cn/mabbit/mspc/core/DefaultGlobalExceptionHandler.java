@@ -15,4 +15,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @ConditionalOnMissingBean(AbstractExceptionHandler.class)
 public class DefaultGlobalExceptionHandler
         extends AbstractExceptionHandler
-{}
+{
+    public DefaultGlobalExceptionHandler()
+    {
+        super();
+        log.info("No global exception handler has been found, create default...");
+    }
+}

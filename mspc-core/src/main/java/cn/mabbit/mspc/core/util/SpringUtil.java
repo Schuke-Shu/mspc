@@ -1,6 +1,5 @@
 package cn.mabbit.mspc.core.util;
 
-import lombok.Setter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
@@ -19,7 +18,6 @@ public abstract class SpringUtil
     /**
      * Spring应用上下文环境
      */
-    @Setter
     private static ConfigurableListableBeanFactory factory;
 
     /**
