@@ -35,5 +35,8 @@ public class CacheProperties extends CommonPoolProperties
      * 密码
      */
     private String password;
+    /**
+     * 缓存值的序列化方案
+     */
     private JsonTypeInfo.As serialType = EXISTING_PROPERTY;
 }
