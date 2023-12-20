@@ -1,6 +1,11 @@
 package cn.mabbit.mspc.data.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -16,6 +21,7 @@ import static cn.mabbit.mdk4j.core.lang.constant.TimeConsts.DATETIME_PATTERN;
  * @author 一只枫兔
  * @Date 2023/9/4 13:18
  */
+@Data
 public abstract class BasePO<K extends Serializable>
         implements PO<K>
 {
@@ -27,6 +33,8 @@ public abstract class BasePO<K extends Serializable>
     /**
      * 创建时间
      */
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonFormat(pattern = DATETIME_PATTERN)
     protected LocalDateTime createTime;
 

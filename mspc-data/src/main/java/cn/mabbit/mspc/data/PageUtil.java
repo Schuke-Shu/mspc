@@ -132,7 +132,7 @@ public abstract class PageUtil
     {
         Assert.state(
                 pageNum != null && pageSize != null,
-                () -> new ProjectException("The pagination parameter must not be null")
+                () -> ProjectException._new("The pagination parameter must not be null")
         );
 
         Page<T> page = PageHelper.startPage(pageNum, pageSize, count, reasonable, pageSizeZero);

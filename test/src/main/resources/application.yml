@@ -34,6 +34,10 @@ logging:
   file:
     # 文件路径
     path: ./log
+  level:
+    cn.mabbit.mspc.core.ApiAspect: debug
+    cn.mabbit.mspc.cache: debug
+    cn.mabbit.test: debug
 
 # 自定义配置项
 common:

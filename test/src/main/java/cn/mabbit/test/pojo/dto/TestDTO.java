@@ -2,8 +2,7 @@ package cn.mabbit.test.pojo.dto;
 
 import cn.mabbit.mspc.data.pojo.BasePageDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.EqualsAndHashCode;
 
 /**
  * <h2></h2>
@@ -12,8 +11,7 @@ import lombok.Setter;
  * @Date 2023-11-29 16:22
  */
 @Schema(title = "测试DTO")
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
 public class TestDTO extends BasePageDTO
 {
     @Schema(title = "测试")

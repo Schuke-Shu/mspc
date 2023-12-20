@@ -44,9 +44,12 @@ public class ApiAspect
         try
         {
             // 添加请求到达时间
-            SyncContext.put(REQUEST_TIME, LocalDateTime.now());
+            LocalDateTime now = LocalDateTime.now();
+            SyncContext.put(REQUEST_TIME, now);
+            log.debug("Accept request, time: {}", now);
             // 放行
             Object result = point.proceed();
+            log.debug("Api result: {}", result);
             // 包装结果并返回
             responseJson(R.ok(result));
             return null;
@@ -75,7 +78,7 @@ public class ApiAspect
         catch (IOException e)
         {
             log.error("Failed to send response data, msg: {}", e.getMessage());
-            throw new ProjectException("-- Failed to send response data", e);
+            throw ProjectException._new("-- Failed to send response data", e);
         }
     }
 }

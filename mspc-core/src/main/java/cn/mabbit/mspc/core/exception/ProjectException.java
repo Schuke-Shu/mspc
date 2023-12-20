@@ -14,25 +14,50 @@ public class ProjectException
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public ProjectException() {}
+    protected ProjectException() {}
 
-    public ProjectException(String message)
+    protected ProjectException(String message)
     {
         super(message);
     }
 
-    public ProjectException(String message, Throwable cause)
+    protected ProjectException(String message, Throwable cause)
     {
         super(message, cause);
     }
 
-    public ProjectException(Throwable cause)
+    protected ProjectException(Throwable cause)
     {
         super(cause);
     }
 
-    public ProjectException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
+    protected ProjectException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
     {
         super(message, cause, enableSuppression, writableStackTrace);
+    }
+
+    public static ProjectException _new()
+    {
+        return new ProjectException();
+    }
+
+    public static ProjectException _new(String message)
+    {
+        return new ProjectException(message);
+    }
+
+    public static ProjectException _new(String message, Throwable cause)
+    {
+        return new ProjectException(message, cause);
+    }
+
+    public static ProjectException _new(Throwable cause)
+    {
+        return new ProjectException(cause);
+    }
+
+    public static ProjectException _new(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
+    {
+        return new ProjectException(message, cause, enableSuppression, writableStackTrace);
     }
 }

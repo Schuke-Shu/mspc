@@ -19,31 +19,34 @@ public class ServiceException
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public static final ServiceException COMMON = new ServiceException();
+    public static final ServiceException COMMON = _new();
 
     private final ServiceCode serviceCode;
 
-    public ServiceException()
-    {
-        this(ServiceCodePool.ERR_UNKNOWN);
-    }
-
-    public ServiceException(String detail)
-    {
-        this(ServiceCodePool.ERR_UNKNOWN);
-        this.detail = detail;
-    }
-
-    public ServiceException(ServiceCode code)
-    {
-        super(code.msg());
-        this.serviceCode = code;
-    }
-
-    public ServiceException(ServiceCode code, String detail)
+    protected ServiceException(ServiceCode code, String detail)
     {
         super(code.msg());
         this.serviceCode = code;
         this.detail = detail;
+    }
+
+    public static ServiceException _new()
+    {
+        return _new(ServiceCodePool.ERR_UNKNOWN);
+    }
+
+    public static ServiceException _new(String detail)
+    {
+        return _new(ServiceCodePool.ERR_UNKNOWN, detail);
+    }
+
+    public static ServiceException _new(ServiceCode code)
+    {
+        return _new(code, null);
+    }
+
+    public static ServiceException _new(ServiceCode code, String detail)
+    {
+        return new ServiceException(code, detail);
     }
 }

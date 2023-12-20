@@ -30,10 +30,15 @@ public class PropertiesException
 
     private static final String DETAIL_PATTERN = "property error: [%s - %s]";
 
-    public PropertiesException(Class<?> property, String optional)
+    protected PropertiesException(Class<?> property, String optional)
     {
         this.property = property;
         this.optional = optional;
         detail = String.format(DETAIL_PATTERN, property.getTypeName(), optional);
+    }
+
+    public static PropertiesException _new(Class<?> property, String optional)
+    {
+        return new PropertiesException(property, optional);
     }
 }

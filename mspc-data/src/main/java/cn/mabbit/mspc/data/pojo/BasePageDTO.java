@@ -3,6 +3,7 @@ package cn.mabbit.mspc.data.pojo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 import java.io.Serial;
 
@@ -12,6 +13,7 @@ import java.io.Serial;
  * @author 一只枫兔
  * @Date 2023/11/8 18:04
  */
+@Data
 public class BasePageDTO
         implements PageDTO
 {

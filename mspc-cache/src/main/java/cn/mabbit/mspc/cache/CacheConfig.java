@@ -1,12 +1,9 @@
 package cn.mabbit.mspc.cache;
 
-import cn.mabbit.mspc.core.exception.ProjectException;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
-import jakarta.annotation.PostConstruct;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +11,17 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-import java.lang.reflect.Field;
 import java.time.Duration;
 
 /**
@@ -39,57 +39,80 @@ public class CacheConfig
 {
     private CacheProperties properties;
 
+    public CacheConfig()
+    {
+        log.info("Start configuring the cache");
+    }
+
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory)
     {
         RedisTemplate<String, Object> redis = new RedisTemplate<>();
         redis.setConnectionFactory(factory);
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        // 替换 enableDefaultTyping 方法
-        mapper.activateDefaultTyping(
-                LaissezFaireSubTypeValidator.instance,
-                ObjectMapper.DefaultTyping.NON_FINAL,
-                JsonTypeInfo.As.WRAPPER_ARRAY
-        );
-        // Json 序列化
-        Jackson2JsonRedisSerializer<Object> jsonSerializer = new Jackson2JsonRedisSerializer<>(mapper, Object.class);
+
+
+        Jackson2JsonRedisSerializer<Object> jsonSerializer =
+                // Json 序列化
+                new Jackson2JsonRedisSerializer<>(
+                        new ObjectMapper()
+                                .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY)
+                                // 替换 enableDefaultTyping 方法
+                                .activateDefaultTyping(
+                                        LaissezFaireSubTypeValidator.instance,
+                                        ObjectMapper.DefaultTyping.NON_FINAL,
+                                        properties.getSerialType()
+                                ),
+                        Object.class
+                );
         // String 序列化
         StringRedisSerializer stringSerializer = new StringRedisSerializer();
 
         redis.setKeySerializer(stringSerializer);
         redis.setHashKeySerializer(stringSerializer);
+        redis.setStringSerializer(stringSerializer);
         redis.setValueSerializer(jsonSerializer);
         redis.setHashValueSerializer(jsonSerializer);
         redis.afterPropertiesSet();
 
-        log.info("Configured [RedisTemplate]");
+        log.debug("Configured [RedisTemplate]");
         return redis;
     }
 
-    @PostConstruct
-    public void initUtil()
+    @Bean
+    public RedisCacheManager redisCacheManager(RedisConnectionFactory factory, RedisTemplate<?, ?> redisTemplate)
+    {
+        RedisCacheManager manager = new RedisCacheManager(
+                RedisCacheWriter.nonLockingRedisCacheWriter(factory),
+                RedisCacheConfiguration.defaultCacheConfig()
+                        .serializeKeysWith(
+                                RedisSerializationContext
+                                        .SerializationPair
+                                        .fromSerializer(redisTemplate.getStringSerializer())
+                        )
+                        .serializeValuesWith(
+                                RedisSerializationContext
+                                        .SerializationPair
+                                        .fromSerializer(redisTemplate.getValueSerializer())
+                        )
+        );
+
+        log.debug("Configured [RedisCacheManager]");
+        return manager;
+    }
+
+    @Bean
+    public JedisPool jedisPool()
     {
         String host = properties.getHost();
         Integer port = properties.getPort();
-
-        // TODO Mdk4j 反射工具
-        try
-        {
-            Field factory = JedisUtil.class.getDeclaredField("pool");
-            factory.setAccessible(true);
-            factory.set(null, new JedisPool(initConfig(), host, port));
-        }
-        catch (NoSuchFieldException | IllegalAccessException e)
-        {
-            throw new ProjectException(e);
-        }
-
+        JedisPool pool = new JedisPool(jedisPoolConfig(), host, port, 30 * 1000, properties.getPassword());
         log.debug("Configured jedis pool, address:[{}:{}]", host, port);
+        return pool;
     }
 
-    private JedisPoolConfig initConfig()
+    @Bean
+    public JedisPoolConfig jedisPoolConfig()
     {
         JedisPoolConfig config = new JedisPoolConfig();
         config.setMaxTotal(properties.getMaxTotal());
@@ -102,6 +125,8 @@ public class CacheConfig
         config.setTestOnBorrow(properties.getTestOnBorrow());
         config.setTestWhileIdle(properties.getTestWhileIdle());
         config.setBlockWhenExhausted(properties.getBlockWhenExhausted());
+        // 关闭 JMX 监控，解决 MXBean 重复问题
+        config.setJmxEnabled(false);
 
         log.debug("Jedis pool config:\n{}", config);
         return config;

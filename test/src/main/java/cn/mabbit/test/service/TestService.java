@@ -1,5 +1,6 @@
 package cn.mabbit.test.service;
 
+import cn.mabbit.test.pojo.TestPO;
 import cn.mabbit.test.pojo.dto.TestDTO;
 import cn.mabbit.test.pojo.vo.TestVO;
 
@@ -16,4 +17,8 @@ public interface TestService
     int test(String arg);
 
     List<TestVO> page(TestDTO dto);
+
+    TestPO cache(String arg);
+
+    TestPO read(Long key);
 }

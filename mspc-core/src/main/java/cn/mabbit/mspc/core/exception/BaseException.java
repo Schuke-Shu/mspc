@@ -19,24 +19,24 @@ public abstract class BaseException
      */
     protected String detail;
 
-    public BaseException() {}
+    protected BaseException() {}
 
-    public BaseException(String message)
+    protected BaseException(String message)
     {
         super(message);
     }
 
-    public BaseException(String message, Throwable cause)
+    protected BaseException(String message, Throwable cause)
     {
         super(message, cause);
     }
 
-    public BaseException(Throwable cause)
+    protected BaseException(Throwable cause)
     {
         super(cause);
     }
 
-    public BaseException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
+    protected BaseException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
     {
         super(message, cause, enableSuppression, writableStackTrace);
     }

@@ -1,10 +1,13 @@
 package cn.mabbit.mspc.cache;
 
 import cn.mabbit.mspc.core.CommonPoolProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.EXISTING_PROPERTY;
 
 /**
  * <h2></h2>
@@ -28,4 +31,9 @@ public class CacheProperties extends CommonPoolProperties
      * 端口号
      */
     private Integer port = 6379;
+    /**
+     * 密码
+     */
+    private String password;
+    private JsonTypeInfo.As serialType = EXISTING_PROPERTY;
 }

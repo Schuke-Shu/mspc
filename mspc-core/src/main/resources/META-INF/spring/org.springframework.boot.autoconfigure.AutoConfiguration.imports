@@ -1,3 +1,4 @@
 cn.mabbit.mspc.core.ApiAspect
 cn.mabbit.mspc.core.DefaultGlobalExceptionHandler
 cn.mabbit.mspc.core.CoreConfig
+cn.mabbit.mspc.core.SpringService

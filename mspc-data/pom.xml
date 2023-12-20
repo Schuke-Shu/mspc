@@ -15,7 +15,7 @@
     <description>数据库交互扩展包</description>
 
     <dependencies>
-        <!-- Mspc Core -->
+        <!-- Mspc core -->
         <dependency>
             <groupId>${mspc.groupId}</groupId>
             <artifactId>mspc-core</artifactId>

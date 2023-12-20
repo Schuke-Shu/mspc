@@ -15,7 +15,7 @@ import java.util.List;
  * @author 一只枫兔
  * @Date 2023-11-27 15:26
  */
-public interface TestMapper extends BaseMapper<String, TestPO>
+public interface TestMapper extends BaseMapper<Long, TestPO>
 {
     int test(@Param("arg") String arg, @Param("time") LocalDateTime time);
 
