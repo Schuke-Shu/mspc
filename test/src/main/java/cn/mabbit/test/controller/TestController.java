@@ -1,5 +1,6 @@
 package cn.mabbit.test.controller;
 
+import cn.mabbit.mspc.cache.CacheService;
 import cn.mabbit.mspc.core.exception.ProjectException;
 import cn.mabbit.mspc.core.web.Web;
 import cn.mabbit.mspc.data.PageUtil;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class TestController
 {
     private TestService service;
+    private CacheService cacheService;
 
     @GetMapping("/demo/{arg}")
     @Operation(summary = "测试方法", parameters = @Parameter(name = "arg"))
@@ -69,5 +71,13 @@ public class TestController
     {
         log.debug("controller read");
         return service.read(key);
+    }
+
+    @GetMapping("/redis")
+    public void redis()
+    {
+        TestPO po = new TestPO();
+        po.setTest("123456");
+        cacheService.set("test", null);
     }
 }

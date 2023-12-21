@@ -12,8 +12,6 @@ import lombok.*;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor(staticName = "_new")
-@AllArgsConstructor(staticName = "_new")
 public class TestPO extends BasePO<Long>
 {
     private String test;

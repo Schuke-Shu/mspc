@@ -107,11 +107,11 @@ public class TimeInterceptor
         return invocation.proceed();
     }
 
-    private String makeCreateSql(String sqlStatement)
+    private String makeCreateSql(String oldSql)
     {
         log.debug("Origin sql is [INSERT], add 'create_time'");
 
-        if (SQL_STATEMENT_PATTERN_CREATE.matcher(sqlStatement).find())
+        if (SQL_STATEMENT_PATTERN_CREATE.matcher(oldSql).find())
         {
             log.debug("The 'create_time' is included in the original SQL statement");
             return null;
@@ -119,7 +119,7 @@ public class TimeInterceptor
 
         // INSERT into table (xx, xx, xx ) values (?,?,?)
         // 查找 ) values ( 的位置
-        StringBuilder sql = new StringBuilder(sqlStatement);
+        StringBuilder sql = new StringBuilder(oldSql);
         Matcher valuesClauseMatcher = SQL_STATEMENT_PATTERN_VALUES.matcher(sql);
         if (!valuesClauseMatcher.find())
         {
@@ -156,17 +156,17 @@ public class TimeInterceptor
         return sql.toString();
     }
 
-    private String makeModifiedSql(String sqlStatement)
+    private String makeModifiedSql(String oldSql)
     {
         log.debug("Origin sql is [UPDATE], add 'modified_time'");
 
-        if (SQL_STATEMENT_PATTERN_MODIFIED.matcher(sqlStatement).find())
+        if (SQL_STATEMENT_PATTERN_MODIFIED.matcher(oldSql).find())
         {
             log.debug("The 'modified_time' is included in the original SQL statement");
             return null;
         }
 
-        StringBuilder sql = new StringBuilder(sqlStatement);
+        StringBuilder sql = new StringBuilder(oldSql);
         Matcher matcher = SQL_STATEMENT_PATTERN_WHERE.matcher(sql);
         // 查找 where 子句的位置
         if (!matcher.find()) return null;

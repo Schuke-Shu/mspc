@@ -1,13 +1,13 @@
 package cn.mabbit.mspc.cache;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +19,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-
-import java.time.Duration;
 
 /**
  * <h2>缓存配置</h2>
@@ -34,11 +30,8 @@ import java.time.Duration;
 @EnableCaching
 @Configuration
 @Setter(onMethod_ = @Autowired)
-@EnableConfigurationProperties(CacheProperties.class)
 public class CacheConfig
 {
-    private CacheProperties properties;
-
     public CacheConfig()
     {
         log.info("Start configuring the cache");
@@ -61,7 +54,7 @@ public class CacheConfig
                                 .activateDefaultTyping(
                                         LaissezFaireSubTypeValidator.instance,
                                         ObjectMapper.DefaultTyping.NON_FINAL,
-                                        properties.getSerialType()
+                                        JsonTypeInfo.As.WRAPPER_ARRAY
                                 ),
                         Object.class
                 );
@@ -99,41 +92,5 @@ public class CacheConfig
 
         log.debug("Configured [RedisCacheManager]");
         return manager;
-    }
-
-    @Bean
-    public JedisPool jedisPool()
-    {
-        String host = properties.getHost();
-        Integer port = properties.getPort();
-        JedisPool pool = new JedisPool(jedisPoolConfig(), host, port, 30 * 1000, properties.getPassword());
-        log.debug("Configured jedis pool, address:[{}:{}]", host, port);
-        return pool;
-    }
-
-    @Bean
-    public JedisPoolConfig jedisPoolConfig()
-    {
-        JedisPoolConfig config = new JedisPoolConfig();
-        config.setMaxTotal(properties.getMaxTotal());
-        config.setMaxIdle(properties.getMaxIdle());
-        config.setNumTestsPerEvictionRun(properties.getNumTestsPerEvictionRun());
-        config.setTimeBetweenEvictionRuns(duration(properties.getTimeBetweenEvictionRunsMillis()));
-        config.setMinEvictableIdleDuration(duration(properties.getMinEvictableIdleTimeMillis()));
-        config.setSoftMinEvictableIdleDuration(duration(properties.getSoftMinEvictableIdleTimeMillis()));
-        config.setMaxWait(duration(properties.getMaxWaitMillis()));
-        config.setTestOnBorrow(properties.getTestOnBorrow());
-        config.setTestWhileIdle(properties.getTestWhileIdle());
-        config.setBlockWhenExhausted(properties.getBlockWhenExhausted());
-        // 关闭 JMX 监控，解决 MXBean 重复问题
-        config.setJmxEnabled(false);
-
-        log.debug("Jedis pool config:\n{}", config);
-        return config;
-    }
-
-    private static Duration duration(long millis)
-    {
-        return Duration.ofMillis(millis);
     }
 }

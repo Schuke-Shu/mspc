@@ -7,7 +7,6 @@ import cn.mabbit.mspc.data.pojo.PageDTO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * <h2>分页工具</h2>
@@ -15,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author 一只枫兔
  * @Date 2023-11-28 16:36
  */
-@Slf4j
 public abstract class PageUtil
 {
     private static boolean DEFAULT_COUNT;

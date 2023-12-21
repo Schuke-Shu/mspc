@@ -1,50 +1,80 @@
 package cn.mabbit.mspc.cache;
 
-import com.alibaba.fastjson2.JSON;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <h2>缓存服务接口</h2>
  *
  * @author 一只枫兔
- * @Date 2023/12/20 20:21
+ * @Date 2023/12/21 8:36
  */
-@Service
-@Setter(onMethod_ = @Autowired)
-public class CacheService
+public interface CacheService
 {
-    private JedisPool pool;
+    /**
+     * 默认15分钟
+     */
+    long DEFAULT_SECONDS = 15 * 60;
 
-    public void set(String key, Object value)
+    /**
+     * 默认时间单位
+     */
+    TimeUnit DEFAULT_UNIT = TimeUnit.SECONDS;
+
+    /**
+     * 设置有效时间，默认单位为秒
+     *
+     * @param key  key
+     * @param time 有效时间
+     */
+    default void expire(String key, long time)
     {
-        try (Jedis jedis = client())
-        {
-            jedis.set(key, JSON.toJSONString(value));
-        }
+        expire(key, time, DEFAULT_UNIT);
     }
 
-    public void setex(String key, Object value, long seconds)
-    {
-        try (Jedis jedis = client())
-        {
-            jedis.setex(key, seconds, JSON.toJSONString(value));
-        }
-    }
+    /**
+     * 设置有效时间
+     *
+     * @param key  key
+     * @param time 有效时间
+     * @param unit 时间单位
+     */
+    void expire(String key, long time, TimeUnit unit);
 
-    public <T> T get(String key, Class<T> cls)
-    {
-        try (Jedis jedis = client())
-        {
-            return JSON.parseObject(jedis.get(key), cls);
-        }
-    }
+    /**
+     * 新增缓存
+     *
+     * @param key   key
+     * @param value value
+     */
+    void set(String key, Object value);
 
-    private Jedis client()
-    {
-        return pool.getResource();
-    }
+    /**
+     * 新增缓存，同时设置有效时间
+     *
+     * @param key     key
+     * @param value   value
+     * @param seconds 有效时间（秒）
+     */
+    void set(String key, Object value, long seconds);
+
+    /**
+     * 删除缓存
+     *
+     * @param key key
+     */
+    void remove(String key);
+
+    /**
+     * 获取缓存
+     *
+     * @param key key
+     * @return value
+     */
+    Object get(String key);
+
+    /**
+     * @param key key
+     * @return key 是否存在
+     */
+    boolean has(String key);
 }

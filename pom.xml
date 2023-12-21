@@ -40,7 +40,6 @@
         <spring-boot.version>3.2.0</spring-boot.version>
 
         <fastjson.version>2.0.25</fastjson.version>
-        <jedis.version>5.1.0</jedis.version>
         <jjwt.version>0.9.1</jjwt.version>
         <knife4j.version>4.3.0</knife4j.version>
         <mybatis.version>3.0.3</mybatis.version>
@@ -126,13 +125,6 @@
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson.version}</version>
-            </dependency>
-
-            <!-- Jedis -->
-            <dependency>
-                <groupId>redis.clients</groupId>
-                <artifactId>jedis</artifactId>
-                <version>${jedis.version}</version>
             </dependency>
 
             <!-- JJWT（Java json web token） -->

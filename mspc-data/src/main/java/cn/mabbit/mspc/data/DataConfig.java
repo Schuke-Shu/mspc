@@ -2,6 +2,7 @@ package cn.mabbit.mspc.data;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.InitializingBean;
@@ -17,6 +18,7 @@ import java.util.List;
  * @author 一只枫兔
  * @Date 2023-12-12 8:35
  */
+@Slf4j
 @Configuration
 @MapperScan("**.mapper")
 @Setter(onMethod_ = @Autowired)
@@ -24,6 +26,11 @@ import java.util.List;
 public class DataConfig
         implements InitializingBean
 {
+    public DataConfig()
+    {
+        log.info("Start configuring the data");
+    }
+
     private List<SqlSessionFactory> factories;
     private DataProperties properties;
 

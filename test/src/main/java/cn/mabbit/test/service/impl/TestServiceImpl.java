@@ -47,7 +47,7 @@ public class TestServiceImpl implements TestService
     @CachePut(value = "cache", key = "'key:' + #result.id")
     public TestPO cache(String arg)
     {
-        TestPO po = TestPO._new();
+        TestPO po = new TestPO();
         po.setId(1L);
         po.setTest(arg);
         po.setCreateTime((LocalDateTime) SyncContext.get(REQUEST_TIME));
@@ -59,6 +59,6 @@ public class TestServiceImpl implements TestService
     public TestPO read(Long key)
     {
         log.debug("read");
-        return TestPO._new();
+        return new  TestPO();
     }
 }
