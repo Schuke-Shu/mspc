@@ -16,7 +16,6 @@
 
     <properties>
         <root.name>test</root.name>
-        <root.env>test</root.env>
         <root.description>测试</root.description>
     </properties>
 
@@ -26,4 +25,23 @@
             <artifactId>mspc-bom</artifactId>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <root.env>dev</root.env>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <root.env>prod</root.env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 </project>
