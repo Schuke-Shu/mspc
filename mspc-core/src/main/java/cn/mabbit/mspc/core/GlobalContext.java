@@ -1,6 +1,5 @@
 package cn.mabbit.mspc.core;
 
-import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -11,7 +10,7 @@ import java.util.Set;
 /**
  * <h2>请求上下文</h2>
  *
- * <p>利用 {@link ThreadLocal} 存储上下文，为线程安全的</p>
+ * <p>利用 {@link ThreadLocal} 存储上下文，线程安全</p>
  *
  * <p>该上下文仅存在于控制器方法执行结束之前，控制器方法执行完毕后销毁</p>
  *
@@ -19,19 +18,17 @@ import java.util.Set;
  * @author 一只枫兔
  * @Date 2023-12-12 10:44
  */
-@Slf4j
-public class SyncContext
+public class GlobalContext
 {
     private static final Context CT = new Context();
 
-    private static Map<String, Object> local()
+    public static Map<String, Object> local()
     {
         return CT.get();
     }
     static void clean()
     {
         CT.remove();
-        log.trace("The current 'SyncContext' has been cleaned");
     }
 
     public static int size()
@@ -56,7 +53,6 @@ public class SyncContext
     }
     public static Object put(String key, Object value)
     {
-        log.trace("Add context: {}, value: {}", key, value);
         return local().put(key, value);
     }
     public static Object remove(String key)

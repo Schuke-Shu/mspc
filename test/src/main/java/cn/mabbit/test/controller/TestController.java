@@ -78,6 +78,8 @@ public class TestController
     {
         TestPO po = new TestPO();
         po.setTest("123456");
-        cacheService.set("test", null);
+        cacheService.set("test:::::t", po);
     }
+
+    public void t1() {}
 }

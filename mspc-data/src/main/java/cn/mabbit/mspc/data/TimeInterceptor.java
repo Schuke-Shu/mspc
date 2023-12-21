@@ -1,6 +1,6 @@
 package cn.mabbit.mspc.data;
 
-import cn.mabbit.mspc.core.SyncContext;
+import cn.mabbit.mspc.core.GlobalContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
@@ -137,7 +137,7 @@ public class TimeInterceptor
         // 定义查找参数值位置的 正则表达 “)”
         Matcher paramPositionMatcher = Pattern.compile("\\)").matcher(sql);
         // 从 ) values ( 的后面位置 end 开始查找 结束括号的位置
-        String param = ", '" + SyncContext.get(REQUEST_TIME) + "'";
+        String param = ", '" + GlobalContext.get(REQUEST_TIME) + "'";
         int position = end + fieldNames.length();
         while (paramPositionMatcher.find(position))
         {
@@ -170,7 +170,7 @@ public class TimeInterceptor
         Matcher matcher = SQL_STATEMENT_PATTERN_WHERE.matcher(sql);
         // 查找 where 子句的位置
         if (!matcher.find()) return null;
-        sql.insert(matcher.start(), ", " + FIELD_MODIFIED + "='" + SyncContext.get(REQUEST_TIME) + "'");
+        sql.insert(matcher.start(), ", " + FIELD_MODIFIED + "='" + GlobalContext.get(REQUEST_TIME) + "'");
 
         return sql.toString();
     }

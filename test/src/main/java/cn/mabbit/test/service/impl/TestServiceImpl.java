@@ -1,6 +1,6 @@
 package cn.mabbit.test.service.impl;
 
-import cn.mabbit.mspc.core.SyncContext;
+import cn.mabbit.mspc.core.GlobalContext;
 import cn.mabbit.test.mapper.TestMapper;
 import cn.mabbit.test.pojo.TestPO;
 import cn.mabbit.test.pojo.dto.TestDTO;
@@ -50,7 +50,7 @@ public class TestServiceImpl implements TestService
         TestPO po = new TestPO();
         po.setId(1L);
         po.setTest(arg);
-        po.setCreateTime((LocalDateTime) SyncContext.get(REQUEST_TIME));
+        po.setCreateTime((LocalDateTime) GlobalContext.get(REQUEST_TIME));
         return po;
     }
 

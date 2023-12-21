@@ -23,9 +23,9 @@ import static cn.mabbit.mspc.core.consts.KeyConsts.REQUEST_TIME;
  * <h2>Api 接口 AOP</h2>
  *
  * <p>
- *     请求到达时向 {@link SyncContext} 添加到达时间，
+ *     请求到达时向 {@link GlobalContext} 添加到达时间，
  *     请求结束时将请求结果包装为 {@link cn.mabbit.mspc.core.web.JsonResult JsonResult} 并返回，
- *     然后清除 {@link SyncContext}
+ *     然后清除 {@link GlobalContext}
  * </p>
  *
  * @author 一只枫兔
@@ -45,11 +45,10 @@ public class ApiAspect
         {
             // 添加请求到达时间
             LocalDateTime now = LocalDateTime.now();
-            SyncContext.put(REQUEST_TIME, now);
+            GlobalContext.put(REQUEST_TIME, now);
             log.debug("Accept request, time: {}", now);
             // 放行
             Object result = point.proceed();
-            log.debug("Api result: {}", result);
             // 包装结果并返回
             responseJson(R.ok(result));
             return null;
@@ -57,7 +56,7 @@ public class ApiAspect
         finally
         {
             // 清除 ThreadLocal
-            SyncContext.clean();
+            GlobalContext.clean();
         }
     }
 
@@ -69,11 +68,10 @@ public class ApiAspect
 
         try (PrintWriter writer = res.getWriter())
         {
-            writer.write(
-                    JSON.toJSONString(data)
-            );
+            String jsonResult = JSON.toJSONString(data);
+            writer.write(jsonResult);
             writer.flush();
-            log.trace("Response: {}", data);
+            log.debug("Response: {}", jsonResult);
         }
         catch (IOException e)
         {
