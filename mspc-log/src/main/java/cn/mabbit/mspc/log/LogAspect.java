@@ -10,18 +10,21 @@ import cn.mabbit.mspc.core.util.ServletUtil;
 import cn.mabbit.mspc.core.web.ServiceCode;
 import cn.mabbit.mspc.log.enums.Status;
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.PropertyFilter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Parameter;
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -48,7 +51,7 @@ public class LogAspect
     {
         // 初始化日志对象
         SysLog record = initLog(anno);
-        if (anno.recordParams()) recordParams(record, point.getArgs());
+        if (anno.recordParams()) recordParams(record, point);
         // 声明结果
         Object result;
 
@@ -117,19 +120,46 @@ public class LogAspect
         record.setStatus(Status.FAILED);
     }
 
-    private void recordParams(SysLog record, Object[] args)
+    private void recordParams(SysLog record, ProceedingJoinPoint point)
     {
-        if (ArrayUtil.isEmpty(args)) return;
+        Object[] args = point.getArgs();
+        if (noArg(args)) return;
 
-        record.setParams(
-                JSON.toJSONString(
-                        Arrays
-                                .stream(args)
-                                .filter(arg -> arg != null && !arg.getClass().isAnnotationPresent(LogIgnore.class))
-                                .toArray(),
-                        (PropertyFilter) (obj, name, value) -> value == null || !value.getClass().isAnnotationPresent(LogIgnore.class)
-                )
-        );
+        StringJoiner joiner = new StringJoiner(",");
+        // TODO JRuyi 反射
+        Parameter[] parameters = ((MethodSignature) point.getSignature()).getMethod().getParameters();
+        for (int i = 0; i < args.length; i++)
+        {
+            if (parameters[i].getAnnotatedType().getAnnotation(LogIgnore.class) != null)
+                continue;
+
+            joiner.add(
+                    parameters[i].getName() +
+                    ':' +
+                    JSON.toJSONString(
+                            args[i],
+                            (PropertyFilter) (obj, name, value) ->
+                                    value == null || !value.getClass().isAnnotationPresent(LogIgnore.class),
+                            JSONWriter.Feature.BeanToArray
+                    )
+            );
+        }
+
+        record.setParams(joiner.toString());
+    }
+
+    private boolean noArg(Object[] args)
+    {
+        if (ArrayUtil.isEmpty(args)) return true;
+
+        boolean isEmpty = true;
+        for (Object o : args)
+            if (o != null)
+            {
+                isEmpty = false;
+                break;
+            }
+        return isEmpty;
     }
 
     private String computeCastTime(long time)
