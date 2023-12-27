@@ -30,9 +30,7 @@ import java.io.IOException;
 @Slf4j
 @Component
 @Setter(onMethod_ = @Autowired)
-public class TokenFilter
-        extends OncePerRequestFilter
-        implements SecurityConsts
+public class TokenFilter extends OncePerRequestFilter implements SecurityConsts
 {
     private SecurityService service;
     private SecurityProperties properties;
@@ -105,7 +103,7 @@ public class TokenFilter
     {
         boolean valid = !StringUtil.isBlank(token) && token.length() < properties.getToken().getMinLength();
 
-        if (!valid) log.trace("Token 无效：{}", token);
+        if (!valid) log.debug("Token 无效：{}", token);
         return valid;
     }
 }

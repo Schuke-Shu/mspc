@@ -17,8 +17,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @ConfigurationProperties(SecurityProperties.PREFIX)
-public class SecurityProperties
-        implements Serializable
+public class SecurityProperties implements Serializable
 {
     public static final String PREFIX = "common.security";
 

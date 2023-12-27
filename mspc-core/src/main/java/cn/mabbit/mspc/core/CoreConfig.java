@@ -20,8 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableAspectJAutoProxy
 @EnableConfigurationProperties(CommonProperties.class)
-public class CoreConfig
-        implements WebMvcConfigurer
+public class CoreConfig implements WebMvcConfigurer
 {
     public CoreConfig()
     {
