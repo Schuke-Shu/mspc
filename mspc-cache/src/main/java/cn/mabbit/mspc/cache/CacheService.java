@@ -1,23 +1,32 @@
 package cn.mabbit.mspc.cache;
 
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Service;
+
 import java.util.concurrent.TimeUnit;
 
 /**
- * <h2>缓存服务接口</h2>
+ * <h2>缓存服务</h2>
  *
- * @Date 2023/12/21 8:36
+ * @Date 2023/12/20 20:21
  */
-public interface CacheService
+@Service
+@Setter(onMethod_ = @Autowired)
+public class CacheService
 {
     /**
      * 默认15分钟
      */
-    long DEFAULT_SECONDS = 15 * 60;
-
+    public static final long DEFAULT_SECONDS = 15 * 60;
     /**
      * 默认时间单位
      */
-    TimeUnit DEFAULT_UNIT = TimeUnit.SECONDS;
+    public static final TimeUnit DEFAULT_UNIT = TimeUnit.SECONDS;
+
+    private RedisTemplate<String, Object> redis;
 
     /**
      * 设置有效时间，默认单位为秒
@@ -25,7 +34,7 @@ public interface CacheService
      * @param key  key
      * @param time 有效时间
      */
-    default void expire(String key, long time)
+    public void expire(String key, long time)
     {
         expire(key, time, DEFAULT_UNIT);
     }
@@ -37,31 +46,43 @@ public interface CacheService
      * @param time 有效时间
      * @param unit 时间单位
      */
-    void expire(String key, long time, TimeUnit unit);
+    public void expire(String key, long time, TimeUnit unit)
+    {
+        redis.expire(key, time, unit);
+    }
 
     /**
-     * 新增缓存
+     * 设置缓存
      *
      * @param key   key
      * @param value value
      */
-    void set(String key, Object value);
+    public void set(String key, Object value)
+    {
+        ops().set(key, value);
+    }
 
     /**
-     * 新增缓存，同时设置有效时间
+     * 设置缓存，同时设置有效时间
      *
      * @param key     key
      * @param value   value
      * @param seconds 有效时间（秒）
      */
-    void set(String key, Object value, long seconds);
+    public void set(String key, Object value, long seconds)
+    {
+        ops().set(key, value, seconds, TimeUnit.SECONDS);
+    }
 
     /**
      * 删除缓存
      *
      * @param key key
      */
-    void remove(String key);
+    public void remove(String key)
+    {
+        redis.delete(key);
+    }
 
     /**
      * 获取缓存
@@ -69,11 +90,22 @@ public interface CacheService
      * @param key key
      * @return value
      */
-    Object get(String key);
+    public Object get(String key)
+    {
+        return ops().get(key);
+    }
 
     /**
      * @param key key
      * @return key 是否存在
      */
-    boolean has(String key);
+    public boolean has(String key)
+    {
+        return Boolean.TRUE.equals(redis.hasKey(key));
+    }
+
+    private ValueOperations<String, Object> ops()
+    {
+        return redis.opsForValue();
+    }
 }

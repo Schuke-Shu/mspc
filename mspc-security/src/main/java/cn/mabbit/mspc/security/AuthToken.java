@@ -13,8 +13,7 @@ import java.util.Collection;
  *
  * @Date 2023/12/25 13:20
  */
-public class AuthToken
-        extends AbstractAuthenticationToken
+public class AuthToken extends AbstractAuthenticationToken
 {
     @Serial
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
@@ -24,10 +23,7 @@ public class AuthToken
      */
     private final Object principal;
 
-    public AuthToken(
-            Object principal,
-            Collection<? extends GrantedAuthority> authorities
-    )
+    public AuthToken(Object principal, Collection<? extends GrantedAuthority> authorities)
     {
         super(authorities);
         this.principal = principal;
@@ -47,13 +43,9 @@ public class AuthToken
     }
 
     @Override
-    public void setAuthenticated(boolean isAuthenticated)
-            throws IllegalArgumentException
+    public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException
     {
-        Assert.isFalse(
-                isAuthenticated,
-                () -> "无法将此令牌设置为已认证，应使用构造函数"
-        );
+        Assert.isFalse(isAuthenticated, () -> "无法将此令牌设置为已认证，请使用构造函数");
         super.setAuthenticated(false);
     }
 

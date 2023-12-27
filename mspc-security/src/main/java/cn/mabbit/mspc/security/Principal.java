@@ -11,5 +11,6 @@ public class Principal
 {
     public Principal(Claims claims)
     {
+        // TODO 当事人对象初始化
     }
 }
