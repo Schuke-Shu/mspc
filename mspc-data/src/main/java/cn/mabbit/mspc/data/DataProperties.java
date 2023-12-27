@@ -11,7 +11,6 @@ import java.io.Serializable;
 /**
  * <h2>数据库配置</h2>
  *
- * @author 一只枫兔
  * @Date 2023-12-12 14:32
  */
 @Getter

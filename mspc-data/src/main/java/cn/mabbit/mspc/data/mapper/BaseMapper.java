@@ -11,7 +11,6 @@ import java.util.List;
  *
  * @param <K> 主键类型
  * @param <E> 实体类型
- * @author 一只枫兔
  * @Date 2023-11-29 9:46
  */
 public interface BaseMapper<K extends Serializable, E extends BasePO<K>>

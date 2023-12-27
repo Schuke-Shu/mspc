@@ -7,7 +7,6 @@ import java.io.Serializable;
  *
  * @param <L> 左表主键类型
  * @param <R> 右表主键类型
- * @author 一只枫兔
  * @Date 2023-12-07 9:57
  */
 public interface CorrelationTable<L extends Serializable, R extends Serializable>

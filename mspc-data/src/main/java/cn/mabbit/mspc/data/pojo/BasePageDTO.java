@@ -10,7 +10,6 @@ import java.io.Serial;
 /**
  * <h2>分页查询DTO</h2>
  *
- * @author 一只枫兔
  * @Date 2023/11/8 18:04
  */
 @Data

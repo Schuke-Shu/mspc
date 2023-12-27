@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 /**
  * <h2>Spring 服务接口</h2>
  *
- * @author 一只枫兔
  * @Date 2023/12/20 14:18
  */
 @Service

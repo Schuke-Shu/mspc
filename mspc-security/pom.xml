@@ -7,10 +7,31 @@
     <parent>
         <groupId>cn.mabbit.mspc</groupId>
         <artifactId>mspc-parent</artifactId>
-        <version>1.0</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>mspc-security</artifactId>
 
     <description>Security 扩展包</description>
+
+    <dependencies>
+        <!-- Mspc core -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>mspc-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- JJWT（Java json web token） -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
+
+        <!-- Spring security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+    </dependencies>
 </project>

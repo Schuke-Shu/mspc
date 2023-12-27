@@ -10,7 +10,6 @@ import org.springframework.lang.Nullable;
 /**
  * <h2>Spring工具类</h2>
  *
- * @author 一只枫兔
  * @Date 2023/9/20 11:13
  */
 public abstract class SpringUtil

@@ -1,12 +1,10 @@
 package cn.mabbit.mspc.core.web;
 
-import cn.mabbit.mspc.core.consts.ServiceCodePool;
 import cn.mabbit.mspc.core.exception.ServiceException;
 
 /**
  * <h2>包装业务返回信息接口</h2>
  *
- * @author 一只枫兔
  * @Date 2023/9/2 16:43
  */
 public interface R
@@ -30,7 +28,7 @@ public interface R
      */
     static <D> JsonResult<D> ok(D data)
     {
-        return new JsonResult<>(ServiceCodePool.OK.code(), data, null);
+        return new JsonResult<>(ServiceCode.OK.code(), data, null);
     }
 
     /**
@@ -64,6 +62,6 @@ public interface R
      */
     static <E extends ServiceException> JsonResult<Object> fail(E e)
     {
-        return fail(e.getServiceCode());
+        return fail(e.code());
     }
 }

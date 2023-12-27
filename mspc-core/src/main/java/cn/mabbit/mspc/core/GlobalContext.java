@@ -1,7 +1,5 @@
 package cn.mabbit.mspc.core;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +13,6 @@ import java.util.Set;
  * <p>该上下文仅存在于控制器方法执行结束之前，控制器方法执行完毕后销毁</p>
  *
  * @see ApiAspect
- * @author 一只枫兔
  * @Date 2023-12-12 10:44
  */
 public class GlobalContext
@@ -59,7 +56,7 @@ public class GlobalContext
     {
         return local().remove(key);
     }
-    public static void putAll(@NotNull Map<? extends String, ?> m)
+    public static void putAll(Map<? extends String, ?> m)
     {
         local().putAll(m);
     }

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  *
  * <p>不需要扩展异常处理器时可以不自己创建全局异常处理器</p>
  *
- * @author 一只枫兔
  * @Date 2023-11-28 11:06
  */
 @RestControllerAdvice

@@ -13,7 +13,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * <h2>日志注解</h2>
  *
- * @author 一只枫兔
  * @Date 2023-11-25 10:33
  */
 @Target(METHOD)
@@ -31,10 +30,28 @@ public @interface Log
      */
     String description() default "";
 
+    /**
+     * @return 业务类型
+     */
     BusinessType businessType() default BusinessType.OTHER;
 
     /**
      * @return 操作类型
      */
     OperatorType operation() default OperatorType.ADMIN;
+
+    /**
+     * @return 是否记录请求参数
+     */
+    boolean recordParams() default true;
+
+    /**
+     * @return 是否记录相应结果
+     */
+    boolean recordResult() default true;
+
+    /**
+     * @return 排除指定的请求参数
+     */
+    String[] excludeParams() default {};
 }

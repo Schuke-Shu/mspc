@@ -1,6 +1,5 @@
 package cn.mabbit.mspc.core.util;
 
-import cn.mabbit.mspc.core.exception.ProjectException;
 import com.alibaba.fastjson2.JSON;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,24 +10,43 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
-import java.util.function.Consumer;
+import java.util.Map;
 
 /**
  * <h2>Servlet工具类</h2>
  *
- * @author 一只枫兔
  * @Date 2023/9/15 13:02
  */
 @Slf4j
 public abstract class ServletUtil
 {
+    public static void responseJson(Object data)
+    {
+        HttpServletResponse res = ServletUtil.getResponse();
+
+        res.setContentType("application/json;charset=utf-8");
+
+        try (PrintWriter writer = res.getWriter())
+        {
+            String jsonResult = JSON.toJSONString(data);
+            writer.write(jsonResult);
+            writer.flush();
+            log.debug("Response: {}", jsonResult);
+        }
+        catch (IOException e)
+        {
+            log.error("Failed to send response data, msg: {}", e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
     public static ServletRequestAttributes getRequestAttributes()
     {
         return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     }
 
     /**
-     * @return 获取当前请求的request对象
+     * @return 当前请求的request对象
      */
     public static HttpServletRequest getRequest()
     {
@@ -36,7 +54,7 @@ public abstract class ServletUtil
     }
 
     /**
-     * @return 获取当前请求的response对象
+     * @return 当前请求的response对象
      */
     public static HttpServletResponse getResponse()
     {
@@ -75,6 +93,14 @@ public abstract class ServletUtil
     public static Enumeration<String> getHeaders(String s)
     {
         return getRequest().getHeaders(s);
+    }
+
+    /**
+     * @return 参数 Map
+     */
+    public static Map<String, String[]> getParameterMap()
+    {
+        return getRequest().getParameterMap();
     }
 
     /**

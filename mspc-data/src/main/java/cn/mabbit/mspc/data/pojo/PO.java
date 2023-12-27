@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
  * <h2>PO 接口</h2>
  *
  * @param <K> 主键类型
- * @author 一只枫兔
  * @Date 2023-12-14 10:43
  */
 public interface PO<K extends Serializable>

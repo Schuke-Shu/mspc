@@ -3,7 +3,6 @@ package cn.mabbit.mspc.log.enums;
 /**
  * <h2>业务类型</h2>
  *
- * @author 一只枫兔
  * @Date 2023-12-13 15:24
  */
 public enum BusinessType

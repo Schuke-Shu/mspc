@@ -19,7 +19,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *
  * <p>组合了 {@link Validated}、{@link RestController}、{@link RequestMapping}</p>
  *
- * @author 一只枫兔
  * @Date 2023/11/3 10:01
  */
 @Target(TYPE)

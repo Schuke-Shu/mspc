@@ -1,7 +1,6 @@
 package cn.mabbit.test.service.impl;
 
 import cn.mabbit.mspc.core.GlobalContext;
-import cn.mabbit.test.mapper.TestMapper;
 import cn.mabbit.test.pojo.TestPO;
 import cn.mabbit.test.pojo.dto.TestDTO;
 import cn.mabbit.test.pojo.vo.TestVO;
@@ -21,7 +20,6 @@ import static cn.mabbit.mspc.core.consts.KeyConsts.REQUEST_TIME;
 /**
  * <h2></h2>
  *
- * @author 一只枫兔
  * @Date 2023-11-27 15:26
  */
 @Slf4j
@@ -29,8 +27,6 @@ import static cn.mabbit.mspc.core.consts.KeyConsts.REQUEST_TIME;
 @Setter(onMethod_ = @Autowired)
 public class TestServiceImpl implements TestService
 {
-    private TestMapper mapper;
-
     @Override
     public int test(String arg)
     {

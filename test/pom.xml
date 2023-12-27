@@ -7,7 +7,7 @@
     <parent>
         <groupId>cn.mabbit.mspc</groupId>
         <artifactId>mspc-parent</artifactId>
-        <version>1.0</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>test</artifactId>
@@ -21,8 +21,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>${mspc.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>mspc-test</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Mspc bom -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>mspc-bom</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
         </dependency>
     </dependencies>
 

@@ -7,7 +7,7 @@
     <parent>
         <groupId>cn.mabbit.mspc</groupId>
         <artifactId>mspc-parent</artifactId>
-        <version>1.0</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>mspc-core</artifactId>
@@ -15,55 +15,50 @@
     <description>核心扩展包</description>
 
     <dependencies>
-        <!-- Alibaba Fastjson -->
+        <!-- Alibaba fastjson -->
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
             <artifactId>fastjson2</artifactId>
         </dependency>
 
-        <!-- JJWT（Java json web token） -->
+        <!-- JRuyi bom -->
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
+            <groupId>cn.jruyi</groupId>
+            <artifactId>jruyi-bom</artifactId>
+            <type>pom</type>
         </dependency>
 
-        <!-- knife4j -->
+        <!-- Openapi3 annotation -->
         <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations-jakarta</artifactId>
         </dependency>
 
-        <!-- Mdk4j -->
-        <dependency>
-            <groupId>cn.mabbit.mdk4j</groupId>
-            <artifactId>mdk4j-bom</artifactId>
-        </dependency>
-
-        <!-- Spring AOP -->
+        <!-- Spring aop -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <!-- Spring JDBC -->
+        <!-- Spring jdbc -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
         </dependency>
 
-        <!-- Spring TX -->
+        <!-- Spring tx -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
         </dependency>
 
-        <!-- Spring Validation -->
+        <!-- Spring validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- Spring Web -->
+        <!-- Spring web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

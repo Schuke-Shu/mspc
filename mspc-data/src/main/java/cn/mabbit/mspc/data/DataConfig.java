@@ -15,7 +15,6 @@ import java.util.List;
 /**
  * <h2>数据库模块配置</h2>
  *
- * @author 一只枫兔
  * @Date 2023-12-12 8:35
  */
 @Slf4j

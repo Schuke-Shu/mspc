@@ -26,7 +26,6 @@ import static cn.mabbit.mspc.core.consts.KeyConsts.REQUEST_TIME;
  * <li>所有数据表中"最后修改时间"的字段名必须一致，由本拦截器的FIELD_MODIFIED属性进行设置</li>
  * </ul>
  *
- * @author 一只枫兔
  * @Date 2023-12-12 11:07
  */
 @Slf4j

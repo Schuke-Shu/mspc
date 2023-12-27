@@ -13,7 +13,7 @@
 
     <groupId>cn.mabbit.mspc</groupId>
     <artifactId>mspc-parent</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
 
     <name>Mabbit spring project common</name>
     <description>Mabbit spring 项目通用扩展包</description>
@@ -32,9 +32,7 @@
     </modules>
 
     <properties>
-        <mspc.groupId>cn.mabbit.mspc</mspc.groupId>
-
-        <mdk4j.version>1.0</mdk4j.version>
+        <jruyi.version>1.0.0</jruyi.version>
         <lombok.version>1.18.30</lombok.version>
 
         <spring-boot.version>3.2.0</spring-boot.version>
@@ -42,10 +40,12 @@
         <fastjson.version>2.0.25</fastjson.version>
         <jjwt.version>0.9.1</jjwt.version>
         <knife4j.version>4.3.0</knife4j.version>
+        <logback.version>1.4.14</logback.version>
         <mybatis.version>3.0.3</mybatis.version>
         <mysql.version>8.0.28</mysql.version>
         <pagehelper.version>2.0.0</pagehelper.version>
         <google.protobuf.version>3.21.12</google.protobuf.version>
+        <swagger.version>2.2.8</swagger.version>
         <snakeyaml.version>2.0</snakeyaml.version>
     </properties>
 
@@ -57,7 +57,7 @@
             <version>${lombok.version}</version>
         </dependency>
 
-        <!-- Spring Boot configuration processor -->
+        <!-- Spring boot configuration processor -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -67,51 +67,22 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Project Build Management -->
+            <!-- JRuyi all -->
             <dependency>
-                <groupId>${mspc.groupId}</groupId>
-                <artifactId>mspc-bom</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${mspc.groupId}</groupId>
-                <artifactId>mspc-cache</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${mspc.groupId}</groupId>
-                <artifactId>mspc-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${mspc.groupId}</groupId>
-                <artifactId>mspc-data</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${mspc.groupId}</groupId>
-                <artifactId>mspc-log</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${mspc.groupId}</groupId>
-                <artifactId>mspc-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${mspc.groupId}</groupId>
-                <artifactId>mspc-test</artifactId>
-                <version>${project.version}</version>
+                <groupId>cn.jruyi</groupId>
+                <artifactId>jruyi-all</artifactId>
+                <version>${jruyi.version}</version>
             </dependency>
 
-            <!-- Mdk4j -->
+            <!-- JRuyi bom -->
             <dependency>
-                <groupId>cn.mabbit.mdk4j</groupId>
-                <artifactId>mdk4j-bom</artifactId>
-                <version>${mdk4j.version}</version>
+                <groupId>cn.jruyi</groupId>
+                <artifactId>jruyi-bom</artifactId>
+                <version>${jruyi.version}</version>
+                <type>pom</type>
             </dependency>
 
-            <!-- Spring-Boot -->
+            <!-- Spring boot -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
@@ -120,7 +91,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Alibaba Fastjson -->
+            <!-- Alibaba fastjson -->
             <dependency>
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
@@ -139,6 +110,20 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
+            </dependency>
+
+            <!-- Logback classic -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <!-- Logback core -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
             </dependency>
 
             <!-- Mybatis -->
@@ -162,14 +147,21 @@
                 <version>${pagehelper.version}</version>
             </dependency>
 
-            <!-- Google Protobuf -->
+            <!-- Google protobuf -->
             <dependency>
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java</artifactId>
                 <version>${google.protobuf.version}</version>
             </dependency>
 
-            <!-- Snake YAML -->
+            <!-- Openapi3 annotation -->
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations-jakarta</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <!-- Snake yaml -->
             <dependency>
                 <groupId>org.yaml</groupId>
                 <artifactId>snakeyaml</artifactId>

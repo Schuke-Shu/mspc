@@ -5,7 +5,6 @@ import java.io.Serializable;
 /**
  * <h2>分页 DTO 接口</h2>
  *
- * @author 一只枫兔
  * @Date 2023-12-14 11:07
  */
 public interface PageDTO

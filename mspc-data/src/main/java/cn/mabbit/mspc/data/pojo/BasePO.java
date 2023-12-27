@@ -10,7 +10,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import static cn.mabbit.mdk4j.core.lang.constant.TimeConsts.DATETIME_PATTERN;
+import static cn.jruyi.core.lang.constant.TimeConsts.DATETIME_PATTERN;
 
 /**
  * <h2>持久化对象基类</h2>
@@ -18,7 +18,6 @@ import static cn.mabbit.mdk4j.core.lang.constant.TimeConsts.DATETIME_PATTERN;
  * <p>Persistant Object 持久化对象，与数据库表一一对应</p>
  *
  * @param <K> 主键类型
- * @author 一只枫兔
  * @Date 2023/9/4 13:18
  */
 @Data

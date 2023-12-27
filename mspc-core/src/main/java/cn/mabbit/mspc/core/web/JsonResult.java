@@ -6,7 +6,6 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * @author 一只枫兔
  * @Date 2023/10/09 18:15
  */
 @Schema(name = "result", title = "JSON数据", description = "restful风格JSON数据")

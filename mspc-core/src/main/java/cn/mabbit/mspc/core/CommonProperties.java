@@ -11,7 +11,6 @@ import java.io.Serializable;
 /**
  * <h2>通用配置</h2>
  *
- * @author 一只枫兔
  * @Date 2023/10/9 18:20
  */
 @Getter
@@ -21,7 +20,7 @@ import java.io.Serializable;
 public class CommonProperties
         implements Serializable
 {
-    public static final String PREFIX = "common.core";
+    public static final String PREFIX = "common";
 
     @Serial
     private static final long serialVersionUID = 1L;

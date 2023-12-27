@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * <h2>测试接口</h2>
  *
- * @author 一只枫兔
  * @Date 2023-11-27 15:24
  */
 public interface TestService

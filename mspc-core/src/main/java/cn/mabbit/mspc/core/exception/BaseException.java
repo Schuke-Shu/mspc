@@ -1,43 +1,43 @@
 package cn.mabbit.mspc.core.exception;
 
-import lombok.Getter;
-import lombok.Setter;
+import cn.mabbit.mspc.core.web.ServiceCode;
 
 /**
  * <h2>异常基类</h2>
  *
- * @author 一只枫兔
  * @Date 2023/10/09 18:15
  */
-@Getter
-@Setter
 public abstract class BaseException
         extends RuntimeException
 {
     /**
      * 细节信息，用于内部调试
      */
-    protected String detail;
+    protected final String detail;
 
-    protected BaseException() {}
+    /**
+     * 状态码
+     */
+    protected final ServiceCode code;
 
-    protected BaseException(String message)
+    public BaseException(ServiceCode code)
     {
-        super(message);
+        this(code, null);
     }
 
-    protected BaseException(String message, Throwable cause)
+    public BaseException(ServiceCode code, String detail)
     {
-        super(message, cause);
+        this.code = code;
+        this.detail = detail;
     }
 
-    protected BaseException(Throwable cause)
+    public String detail()
     {
-        super(cause);
+        return detail;
     }
 
-    protected BaseException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
+    public ServiceCode code()
     {
-        super(message, cause, enableSuppression, writableStackTrace);
+        return code;
     }
 }

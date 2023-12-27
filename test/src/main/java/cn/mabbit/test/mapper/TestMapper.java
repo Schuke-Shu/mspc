@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * <h2></h2>
  *
- * @author 一只枫兔
  * @Date 2023-11-27 15:26
  */
 public interface TestMapper extends BaseMapper<Long, TestPO>

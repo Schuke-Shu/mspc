@@ -1,6 +1,6 @@
 package cn.mabbit.mspc.data.pojo;
 
-import cn.mabbit.mdk4j.core.lang.Bool;
+import cn.jruyi.core.lang.Bool;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 /**
  * <h2>实体表接口</h2>
  *
- * @author 一只枫兔
  * @Date 2023-12-14 10:52
  */
 public interface Entity<K extends Serializable>

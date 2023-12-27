@@ -7,7 +7,7 @@
     <parent>
         <groupId>cn.mabbit.mspc</groupId>
         <artifactId>mspc-parent</artifactId>
-        <version>1.0</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>mspc-bom</artifactId>
@@ -15,30 +15,76 @@
     <description>扩展包清单</description>
 
     <dependencies>
+        <!-- Mspc cache -->
         <dependency>
-            <groupId>${mspc.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>mspc-cache</artifactId>
         </dependency>
+        <!-- Mspc core -->
         <dependency>
-            <groupId>${mspc.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>mspc-core</artifactId>
         </dependency>
+        <!-- Mspc data -->
         <dependency>
-            <groupId>${mspc.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>mspc-data</artifactId>
         </dependency>
+        <!-- Mspc log -->
         <dependency>
-            <groupId>${mspc.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>mspc-log</artifactId>
         </dependency>
+        <!-- Mspc security -->
         <dependency>
-            <groupId>${mspc.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>mspc-security</artifactId>
         </dependency>
+        <!-- Mspc test -->
         <dependency>
-            <groupId>${mspc.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>mspc-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Mspc cache -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mspc-cache</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Mspc core -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mspc-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Mspc data -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mspc-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Mspc log -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mspc-log</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Mspc security -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mspc-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Mspc test -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mspc-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

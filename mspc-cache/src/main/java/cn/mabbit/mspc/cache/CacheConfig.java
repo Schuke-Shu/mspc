@@ -23,7 +23,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 /**
  * <h2>缓存配置</h2>
  *
- * @author 一只枫兔
  * @Date 2023-12-15 10:56
  */
 @Slf4j

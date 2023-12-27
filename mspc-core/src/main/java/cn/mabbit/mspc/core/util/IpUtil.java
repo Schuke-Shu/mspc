@@ -1,12 +1,11 @@
 package cn.mabbit.mspc.core.util;
 
-import cn.mabbit.mdk4j.core.util.StringUtil;
+import cn.jruyi.core.util.StringUtil;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * <h2>Ip工具类</h2>
  *
- * @author 一只枫兔
  * @Date 2023/9/18 11:03
  */
 public abstract class IpUtil

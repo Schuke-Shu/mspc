@@ -1,7 +1,8 @@
 package cn.mabbit.test.controller;
 
 import cn.mabbit.mspc.cache.CacheService;
-import cn.mabbit.mspc.core.exception.ProjectException;
+import cn.mabbit.mspc.core.exception.SystemException;
+import cn.mabbit.mspc.core.web.ServiceCode;
 import cn.mabbit.mspc.core.web.Web;
 import cn.mabbit.mspc.data.PageUtil;
 import cn.mabbit.test.pojo.TestPO;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 /**
  * <h2></h2>
  *
- * @author 一只枫兔
  * @Date 2023/11/9 10:14
  */
 @Slf4j
@@ -50,7 +50,7 @@ public class TestController
     @GetMapping("/void")
     public void test()
     {
-        throw ProjectException._new("test");
+        throw new SystemException(ServiceCode.ERR_UNKNOWN);
     }
 
     @GetMapping("/page")

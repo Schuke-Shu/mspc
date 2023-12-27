@@ -9,7 +9,6 @@ import java.io.Serializable;
 /**
  * <h2>通用连接池配置类</h2>
  *
- * @author 一只枫兔
  * @Date 2023-12-15 15:32
  */
 @Getter

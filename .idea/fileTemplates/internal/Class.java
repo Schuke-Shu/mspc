@@ -4,7 +4,6 @@
 /**
 * <h2></h2>
 *
-* @author 一只枫兔
 * @Date ${DATE} ${TIME}
 */
 public class ${NAME}

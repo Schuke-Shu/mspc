@@ -1,12 +1,10 @@
 package cn.mabbit.mspc.core;
 
-import cn.mabbit.mdk4j.core.util.ClassUtil;
-import cn.mabbit.mdk4j.core.util.StringUtil;
+import cn.jruyi.core.util.ClassUtil;
 import cn.mabbit.mspc.core.consts.GlobalConsts;
-import cn.mabbit.mspc.core.exception.ProjectException;
-import cn.mabbit.mspc.core.web.JsonResult;
-import cn.mabbit.mspc.core.exception.BaseException;
 import cn.mabbit.mspc.core.exception.ServiceException;
+import cn.mabbit.mspc.core.exception.SystemException;
+import cn.mabbit.mspc.core.web.JsonResult;
 import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +24,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;
 
-import static cn.mabbit.mspc.core.consts.ServiceCodePool.*;
 import static cn.mabbit.mspc.core.web.R.fail;
+import static cn.mabbit.mspc.core.web.ServiceCode.*;
 
 /**
  * <h2>全局异常处理器抽象类</h2>
@@ -44,7 +42,6 @@ import static cn.mabbit.mspc.core.web.R.fail;
  * }</pre></p>
  *
  * @see DefaultGlobalExceptionHandler
- * @author 一只枫兔
  * @Date 2023/10/09 18:15
  */
 public abstract class AbstractExceptionHandler
@@ -68,7 +65,7 @@ public abstract class AbstractExceptionHandler
 //        printStack(e);
         if (log.isDebugEnabled())
             log.debug("-- Database error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
-        return fail(ERR_SYSTEM);
+        return fail(ERR_UNKNOWN);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -104,38 +101,29 @@ public abstract class AbstractExceptionHandler
     )
     public JsonResult<Object> handleValidException(Throwable e)
     {
-//        printStack(e);
         if (log.isDebugEnabled())
             log.debug("-- Valid error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
         return fail(ERR_INVALID);
     }
 
-    @ExceptionHandler(ProjectException.class)
-    public JsonResult<Object> handleProjectException(ProjectException e)
+    @ExceptionHandler(SystemException.class)
+    public JsonResult<Object> handleSystemException(SystemException e)
     {
-//        printStack(e);
-
-        if (log.isDebugEnabled())
-        {
-            log.error("Project error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
-            detailDebug(e, log);
-        }
-
-        return fail(ERR_SYSTEM);
+        log.warn("System error: {} - {}, detail: {}", e.code().hex(), e.code().msg(), e.detail());
+        return fail(ERR_UNKNOWN);
     }
 
     @ExceptionHandler(ServiceException.class)
     public JsonResult<Object> handleServiceException(ServiceException e)
     {
-//        printStack(e);
-        if (log.isDebugEnabled()) detailDebug(e, log);
+        if (log.isDebugEnabled())
+            log.debug("Service error: {} - {}, detail: {}", e.code().hex(), e.code().msg(), e.detail());
         return fail(e);
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
     public JsonResult<Object> handleNoResourceFoundException(NoResourceFoundException e)
     {
-//        printStack(e);
         log.debug("Error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
         return fail(ERR_NOT_FOUND);
     }
@@ -147,16 +135,6 @@ public abstract class AbstractExceptionHandler
         handleUnknownError(e);
         printStack(e);
         return fail(ERR_UNKNOWN);
-    }
-
-    /**
-     * log 等级为 debug 时打印异常 detail 信息
-     *
-     * @param e {@link BaseException}
-     */
-    protected static void detailDebug(BaseException e, Logger l)
-    {
-        if (l.isDebugEnabled() && StringUtil.notBlank(e.getDetail())) l.debug("Error detail: {}", e.getDetail());
     }
 
     protected void printStack(Throwable e)

@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * <h2>缓存服务接口</h2>
  *
- * @author 一只枫兔
  * @Date 2023/12/21 8:36
  */
 public interface CacheService
