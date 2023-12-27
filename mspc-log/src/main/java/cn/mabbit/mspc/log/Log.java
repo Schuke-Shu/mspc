@@ -49,9 +49,4 @@ public @interface Log
      * @return 是否记录相应结果
      */
     boolean recordResult() default true;
-
-    /**
-     * @return 排除指定的请求参数
-     */
-    String[] excludeParams() default {};
 }

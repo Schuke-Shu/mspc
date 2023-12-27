@@ -1,7 +1,7 @@
 package cn.mabbit.mspc.log;
 
+import cn.jruyi.core.util.ArrayUtil;
 import cn.jruyi.core.util.ClassUtil;
-import cn.jruyi.core.util.MapUtil;
 import cn.mabbit.mspc.core.ThreadContext;
 import cn.mabbit.mspc.core.consts.KeyConsts;
 import cn.mabbit.mspc.core.exception.BaseException;
@@ -10,6 +10,7 @@ import cn.mabbit.mspc.core.util.ServletUtil;
 import cn.mabbit.mspc.core.web.ServiceCode;
 import cn.mabbit.mspc.log.enums.Status;
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.filter.PropertyFilter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,8 +22,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -49,6 +48,7 @@ public class LogAspect
     {
         // 初始化日志对象
         SysLog record = initLog(anno);
+        if (anno.recordParams()) recordParams(record, point.getArgs());
         // 声明结果
         Object result;
 
@@ -92,7 +92,6 @@ public class LogAspect
         record.setIp(IpUtil.getIp());
         record.setBusinessType(anno.businessType());
         record.setCreateTime((LocalDateTime) ThreadContext.get(KeyConsts.REQUEST_TIME));
-        if (anno.recordParams()) recordParams(record, anno.excludeParams());
 
         return record;
     }
@@ -118,27 +117,18 @@ public class LogAspect
         record.setStatus(Status.FAILED);
     }
 
-    private void recordParams(SysLog record, String[] excludes)
+    private void recordParams(SysLog record, Object[] args)
     {
-        Map<String, String[]> map = ServletUtil.getParameterMap();
-        if (MapUtil.isEmpty(map)) return;
+        if (ArrayUtil.isEmpty(args)) return;
 
         record.setParams(
-                map
-                        .entrySet().stream()
-                        .filter(e ->
-                                {
-                                    for (String exclude : excludes)
-                                        if (exclude.equals(e.getKey()))
-                                            return false;
-                                    return true;
-                                })
-                        .collect(
-                                () -> new StringJoiner("&"),
-                                (j, e) -> j.add(e.getKey() + '=' + Arrays.toString(e.getValue())),
-                                (j1, j2) -> j1.add(j2.toString())
-                        )
-                        .toString()
+                JSON.toJSONString(
+                        Arrays
+                                .stream(args)
+                                .filter(arg -> arg != null && !arg.getClass().isAnnotationPresent(LogIgnore.class))
+                                .toArray(),
+                        (PropertyFilter) (obj, name, value) -> value == null || !value.getClass().isAnnotationPresent(LogIgnore.class)
+                )
         );
     }
 
