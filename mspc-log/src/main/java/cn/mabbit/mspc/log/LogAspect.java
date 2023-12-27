@@ -39,6 +39,11 @@ public class LogAspect
 {
     private LogService service;
 
+    public LogAspect()
+    {
+        log.debug("日志模块上线");
+    }
+
     @Around("@annotation(anno)")
     public Object log(ProceedingJoinPoint point, Log anno) throws Throwable
     {

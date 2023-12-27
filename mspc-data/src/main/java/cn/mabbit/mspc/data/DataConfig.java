@@ -27,7 +27,7 @@ public class DataConfig
 {
     public DataConfig()
     {
-        log.info("开始进行数据库相关配置");
+        log.info("开始进行数据库模块配置");
     }
 
     private List<SqlSessionFactory> factories;

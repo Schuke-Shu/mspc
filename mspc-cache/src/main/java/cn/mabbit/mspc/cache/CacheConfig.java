@@ -33,7 +33,7 @@ public class CacheConfig
 {
     public CacheConfig()
     {
-        log.info("Start configuring the cache");
+        log.info("开始进行缓存模块配置");
     }
 
     @Bean
@@ -67,7 +67,7 @@ public class CacheConfig
         redis.setHashValueSerializer(jsonSerializer);
         redis.afterPropertiesSet();
 
-        log.debug("Configured [RedisTemplate]");
+        log.debug("配置【RedisTemplate】");
         return redis;
     }
 
@@ -89,7 +89,7 @@ public class CacheConfig
                         )
         );
 
-        log.debug("Configured [RedisCacheManager]");
+        log.debug("配置【RedisCacheManager】");
         return manager;
     }
 }

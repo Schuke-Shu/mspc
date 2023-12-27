@@ -36,7 +36,7 @@ public class SecurityConfig
 
     public SecurityConfig()
     {
-        log.debug("开始配置安全模块");
+        log.debug("开始进行安全模块配置");
     }
 
     // 加密编码器
