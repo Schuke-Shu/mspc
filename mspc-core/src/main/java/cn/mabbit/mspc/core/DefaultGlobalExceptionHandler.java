@@ -18,6 +18,6 @@ public class DefaultGlobalExceptionHandler
     public DefaultGlobalExceptionHandler()
     {
         super();
-        log.info("No global exception handler has been found, create default...");
+        log.info("没有发现扩展全局异常处理器，创建默认处理器");
     }
 }

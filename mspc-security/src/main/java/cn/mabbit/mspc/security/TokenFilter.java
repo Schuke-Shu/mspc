@@ -1,6 +1,7 @@
 package cn.mabbit.mspc.security;
 
 import cn.jruyi.core.util.StringUtil;
+import cn.mabbit.mspc.core.exception.ServiceException;
 import cn.mabbit.mspc.core.util.ServletUtil;
 import cn.mabbit.mspc.core.web.R;
 import com.alibaba.fastjson2.JSON;
@@ -45,13 +46,13 @@ public class TokenFilter
         // 清空SecurityContext，强制所有请求都必须携带JWT
         SecurityContextHolder.clearContext();
 
-        SecurityProperties.TokenProperties props = properties.getToken();
+        SecurityProperties.TokenProperties tokenProperties = properties.getToken();
         // 从请求头获取token
-        String token = req.getHeader(props.getHeader());
+        String token = req.getHeader(tokenProperties.getHeader());
 
         if (!valid(token))
         {
-            log.debug("Token parsed failed, to next...");
+            log.debug("Token 解析失败");
             // token无效，放行
             chain.doFilter(req, res);
             return;
@@ -63,9 +64,16 @@ public class TokenFilter
             // token有效，准备解析
             claims = service.parse(token);
         }
-        catch (SecurityServiceException e)
+        catch (ServiceException e)
         {
             ServletUtil.responseJson(R.fail(e));
+            return;
+        }
+
+        if (tokenProperties.getOnlyValidityVerification())
+        {
+            log.debug("该模块只做 token 有效性验证，放行");
+            chain.doFilter(req, res);
             return;
         }
 
@@ -83,13 +91,13 @@ public class TokenFilter
                 )
         );
 
-        log.debug("Login authentication: {}", auth);
+        log.debug("登录认证：{}", auth);
 
         // 存入到SecurityContext中
         service.setAuthentication(auth);
 
         // 放行
-        log.debug("Token parsed success, to next...");
+        log.debug("Token 解析成功，放行");
         chain.doFilter(req, res);
     }
 
@@ -97,7 +105,7 @@ public class TokenFilter
     {
         boolean valid = !StringUtil.isBlank(token) && token.length() < properties.getToken().getMinLength();
 
-        if (!valid) log.trace("Token is invalid, token: {}", token);
+        if (!valid) log.trace("Token 无效：{}", token);
         return valid;
     }
 }

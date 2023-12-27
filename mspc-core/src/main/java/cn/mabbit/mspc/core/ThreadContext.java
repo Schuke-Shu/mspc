@@ -6,16 +6,16 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <h2>请求上下文</h2>
+ * <h2>线程上下文</h2>
  *
  * <p>利用 {@link ThreadLocal} 存储上下文，线程安全</p>
  *
- * <p>该上下文仅存在于控制器方法执行结束之前，控制器方法执行完毕后销毁</p>
+ * <p>该上下文仅存在于控制器方法执行结束之前，控制器方法执行完毕后销毁，由 {@link ApiAspect} 控制</p>
  *
  * @see ApiAspect
  * @Date 2023-12-12 10:44
  */
-public class GlobalContext
+public class ThreadContext
 {
     private static final Context CT = new Context();
 

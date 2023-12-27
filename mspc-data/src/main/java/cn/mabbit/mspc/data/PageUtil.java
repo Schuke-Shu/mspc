@@ -126,7 +126,7 @@ public abstract class PageUtil
             Boolean reasonable, Boolean pageSizeZero
     )
     {
-        Assert.state(pageNum != null && pageSize != null, () -> "The pagination parameter must not be null");
+        Assert.state(pageNum != null && pageSize != null, () -> "分页参数不能为空");
 
         Page<T> page = PageHelper.startPage(pageNum, pageSize, count, reasonable, pageSizeZero);
         selector.go();

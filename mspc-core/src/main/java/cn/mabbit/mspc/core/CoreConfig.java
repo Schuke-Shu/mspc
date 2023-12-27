@@ -25,7 +25,7 @@ public class CoreConfig
 {
     public CoreConfig()
     {
-        log.info("Start configuring the web");
+        log.info("开始进行核心配置");
     }
 
     /**
@@ -57,7 +57,7 @@ public class CoreConfig
                 .buildValidatorFactory()
                 .getValidator();
 
-        log.debug("Configured fast-fail of validator");
+        log.debug("配置快速失败");
         return validator;
     }
 }

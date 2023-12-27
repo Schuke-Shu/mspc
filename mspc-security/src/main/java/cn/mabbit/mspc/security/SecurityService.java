@@ -86,7 +86,7 @@ public abstract class SecurityService
 //        Assert.notBlank(algorithm, () -> String.format(PROPERTIES_ERROR_PATTERN, SecurityProperties.TokenProperties.class, "algorithm"));
 //        Assert.notBlank(type, () -> String.format(PROPERTIES_ERROR_PATTERN, SecurityProperties.TokenProperties.class, "type"));
 //        Assert.notBlank(secretKey, () -> String.format(PROPERTIES_ERROR_PATTERN, SecurityProperties.TokenProperties.class, "secretKey"));
-        Assert.isTrue(expire.before(new Date()), () -> "Timeout setting is invalid");
+        Assert.isTrue(expire.before(new Date()), () -> "关于 token 超时时间的配置无效");
 
         Map<String, Object> claims = new HashMap<>();
         handleClaims.accept(claims);
@@ -190,7 +190,7 @@ public abstract class SecurityService
 
             // 未知错误
             if (code == ServiceCode.ERR_UNKNOWN)
-                log.error("Unknown error, -- {}: {}", e.getClass().getSimpleName(), e.getMessage());
+                log.error("未知错误：-- {}: {}", e.getClass().getSimpleName(), e.getMessage());
             else
                 log.debug(code.msg());
 

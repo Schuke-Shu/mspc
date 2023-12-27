@@ -1,6 +1,7 @@
 package cn.mabbit.mspc.security;
 
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  *
  * @Date 2023/12/21 15:25
  */
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @Setter(onMethod_ = @Autowired)
@@ -31,6 +33,11 @@ public class SecurityConfig
 {
     private SecurityProperties securityProperties;
     private TokenFilter tokenFilter;
+
+    public SecurityConfig()
+    {
+        log.debug("开始配置安全模块");
+    }
 
     // 加密编码器
     @Bean

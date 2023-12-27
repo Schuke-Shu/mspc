@@ -2,7 +2,7 @@ package cn.mabbit.mspc.log;
 
 import cn.jruyi.core.util.ClassUtil;
 import cn.jruyi.core.util.MapUtil;
-import cn.mabbit.mspc.core.GlobalContext;
+import cn.mabbit.mspc.core.ThreadContext;
 import cn.mabbit.mspc.core.consts.KeyConsts;
 import cn.mabbit.mspc.core.exception.BaseException;
 import cn.mabbit.mspc.core.util.IpUtil;
@@ -57,7 +57,7 @@ public class LogAspect
         }
         catch (Throwable e)
         {
-            handleError(record, e);
+            recordError(record, e);
             throw e;
         }
         finally
@@ -76,6 +76,7 @@ public class LogAspect
 
     private SysLog initLog(Log anno)
     {
+        log.debug("初始化日志对象");
         SysLog record = new SysLog();
 
         record.setTitle(anno.title());
@@ -85,8 +86,8 @@ public class LogAspect
         record.setUri(ServletUtil.getRequestURI());
         record.setIp(IpUtil.getIp());
         record.setBusinessType(anno.businessType());
-        record.setCreateTime((LocalDateTime) GlobalContext.get(KeyConsts.REQUEST_TIME));
-        if (anno.recordParams()) setParams(record, anno.excludeParams());
+        record.setCreateTime((LocalDateTime) ThreadContext.get(KeyConsts.REQUEST_TIME));
+        if (anno.recordParams()) recordParams(record, anno.excludeParams());
 
         return record;
     }
@@ -98,7 +99,7 @@ public class LogAspect
         record.setStatus(Status.SUCCESS);
     }
 
-    private void handleError(SysLog record, Throwable e)
+    private void recordError(SysLog record, Throwable e)
     {
         // TODO JRuyi ClassUtil
         if (e instanceof BaseException base)
@@ -112,7 +113,7 @@ public class LogAspect
         record.setStatus(Status.FAILED);
     }
 
-    private void setParams(SysLog record, String[] excludes)
+    private void recordParams(SysLog record, String[] excludes)
     {
         Map<String, String[]> map = ServletUtil.getParameterMap();
         if (MapUtil.isEmpty(map)) return;

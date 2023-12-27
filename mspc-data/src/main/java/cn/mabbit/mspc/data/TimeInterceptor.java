@@ -1,6 +1,6 @@
 package cn.mabbit.mspc.data;
 
-import cn.mabbit.mspc.core.GlobalContext;
+import cn.mabbit.mspc.core.ThreadContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
@@ -85,11 +85,11 @@ public class TimeInterceptor
             throws Throwable
     {
         // 获取 BoundSql
-        log.debug("Intercept sql...");
+        log.debug("准备拦截 sql");
         BoundSql boundSql = getBoundSql(invocation);
 
         String sql = getSql(boundSql);
-        log.debug("Origin sql: {}", sql);
+        log.debug("原 sql，{}", sql);
 
         // 生成新 sql
         String newSql = null;
@@ -98,7 +98,7 @@ public class TimeInterceptor
 
         if (newSql != null)
         {
-            log.debug("New sql: {}", newSql);
+            log.debug("新 sql：{}", newSql);
             reflect(boundSql, newSql); // TODO Mdk4j 反射工具
         }
 
@@ -108,11 +108,11 @@ public class TimeInterceptor
 
     private String makeCreateSql(String oldSql)
     {
-        log.debug("Origin sql is [INSERT], add 'create_time'");
+        log.debug("原 sql 类型为【INSERT】，准备添加 create_time 字段");
 
         if (SQL_STATEMENT_PATTERN_CREATE.matcher(oldSql).find())
         {
-            log.debug("The 'create_time' is included in the original SQL statement");
+            log.debug("原 sql 已经包含 create_time 字段");
             return null;
         }
 
@@ -122,7 +122,7 @@ public class TimeInterceptor
         Matcher valuesClauseMatcher = SQL_STATEMENT_PATTERN_VALUES.matcher(sql);
         if (!valuesClauseMatcher.find())
         {
-            log.warn("Not found ') values ('");
+            log.warn("没有找到 【) values (】 段");
             return null;
         }
 
@@ -136,7 +136,7 @@ public class TimeInterceptor
         // 定义查找参数值位置的 正则表达 “)”
         Matcher paramPositionMatcher = Pattern.compile("\\)").matcher(sql);
         // 从 ) values ( 的后面位置 end 开始查找 结束括号的位置
-        String param = ", '" + GlobalContext.get(REQUEST_TIME) + "'";
+        String param = ", '" + ThreadContext.get(REQUEST_TIME) + "'";
         int position = end + fieldNames.length();
         while (paramPositionMatcher.find(position))
         {
@@ -148,7 +148,7 @@ public class TimeInterceptor
 
         if (position == end)
         {
-            log.warn("Not find insert position!");
+            log.warn("没有找到 sql 插入位置！");
             return null;
         }
 
@@ -157,11 +157,11 @@ public class TimeInterceptor
 
     private String makeModifiedSql(String oldSql)
     {
-        log.debug("Origin sql is [UPDATE], add 'modified_time'");
+        log.debug("原 sql 类型为【UPDATE】，准备添加 modified_time 字段");
 
         if (SQL_STATEMENT_PATTERN_MODIFIED.matcher(oldSql).find())
         {
-            log.debug("The 'modified_time' is included in the original SQL statement");
+            log.debug("原 sql 已经包含 modified_time 字段");
             return null;
         }
 
@@ -169,7 +169,7 @@ public class TimeInterceptor
         Matcher matcher = SQL_STATEMENT_PATTERN_WHERE.matcher(sql);
         // 查找 where 子句的位置
         if (!matcher.find()) return null;
-        sql.insert(matcher.start(), ", " + FIELD_MODIFIED + "='" + GlobalContext.get(REQUEST_TIME) + "'");
+        sql.insert(matcher.start(), ", " + FIELD_MODIFIED + "='" + ThreadContext.get(REQUEST_TIME) + "'");
 
         return sql.toString();
     }
@@ -196,7 +196,7 @@ public class TimeInterceptor
         if (target instanceof StatementHandler handler)
             return handler.getBoundSql();
 
-        throw new RuntimeException("Failed to get [StatementHandler]! Please check the interceptor configuration!");
+        throw new RuntimeException("没有找到【StatementHandler】！请检查拦截器配置！");
     }
 
     /**

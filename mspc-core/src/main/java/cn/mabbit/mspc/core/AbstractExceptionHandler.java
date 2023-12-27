@@ -64,7 +64,7 @@ public abstract class AbstractExceptionHandler
     {
 //        printStack(e);
         if (log.isDebugEnabled())
-            log.debug("-- Database error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
+            log.debug("-- 数据库异常：{}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
         return fail(ERR_UNKNOWN);
     }
 

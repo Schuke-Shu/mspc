@@ -45,6 +45,10 @@ public class SecurityProperties
         private static final long serialVersionUID = 1L;
 
         /**
+         * 该模块是否只做 token 有效性验证（一般网关模块为 true）
+         */
+        private Boolean onlyValidityVerification = false;
+        /**
          * token签名算法
          */
         private String algorithm = "HS256";

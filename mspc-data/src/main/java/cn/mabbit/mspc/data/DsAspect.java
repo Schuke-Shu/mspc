@@ -7,4 +7,5 @@ package cn.mabbit.mspc.data;
  */
 public class DsAspect
 {
+    // TODO 数据权限处理器
 }
