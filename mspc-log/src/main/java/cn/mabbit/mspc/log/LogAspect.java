@@ -2,7 +2,8 @@ package cn.mabbit.mspc.log;
 
 import cn.jruyi.core.util.ArrayUtil;
 import cn.jruyi.core.util.ClassUtil;
-import cn.mabbit.mspc.core.ThreadContext;
+import cn.mabbit.mspc.annotation.Load;
+import cn.mabbit.mspc.core.RequestContext;
 import cn.mabbit.mspc.core.consts.KeyConsts;
 import cn.mabbit.mspc.core.exception.BaseException;
 import cn.mabbit.mspc.core.util.IpUtil;
@@ -18,7 +19,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Aspect
 @Component
-@Setter(onMethod_ = @Autowired)
+@Setter(onMethod_ = @Load)
 @ConditionalOnBean(LogService.class)
 public class LogAspect
 {
@@ -94,7 +94,7 @@ public class LogAspect
         record.setUri(ServletUtil.getRequestURI());
         record.setIp(IpUtil.getIp());
         record.setBusinessType(anno.businessType());
-        record.setCreateTime((LocalDateTime) ThreadContext.get(KeyConsts.REQUEST_TIME));
+        record.setCreateTime((LocalDateTime) RequestContext.get(KeyConsts.REQUEST_TIME));
 
         return record;
     }

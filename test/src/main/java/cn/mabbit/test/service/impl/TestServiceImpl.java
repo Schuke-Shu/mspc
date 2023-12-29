@@ -1,21 +1,17 @@
 package cn.mabbit.test.service.impl;
 
-import cn.mabbit.mspc.core.ThreadContext;
+import cn.mabbit.mspc.core.RequestContext;
+import cn.mabbit.mspc.core.consts.KeyConsts;
 import cn.mabbit.test.pojo.TestPO;
 import cn.mabbit.test.pojo.dto.TestDTO;
 import cn.mabbit.test.pojo.vo.TestVO;
 import cn.mabbit.test.service.TestService;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static cn.mabbit.mspc.core.consts.KeyConsts.REQUEST_TIME;
 
 /**
  * <h2></h2>
@@ -23,9 +19,8 @@ import static cn.mabbit.mspc.core.consts.KeyConsts.REQUEST_TIME;
  * @Date 2023-11-27 15:26
  */
 @Slf4j
-@Service
-@Setter(onMethod_ = @Autowired)
-public class TestServiceImpl implements TestService
+//@Service
+public class TestServiceImpl implements TestService, KeyConsts
 {
     @Override
     public int test(String arg)
@@ -40,13 +35,13 @@ public class TestServiceImpl implements TestService
     }
 
     @Override
-    @CachePut(value = "cache", key = "'key:' + #result.id")
+    @CachePut(value = "cache", key = "'key:' + #arg")
     public TestPO cache(String arg)
     {
         TestPO po = new TestPO();
         po.setId(1L);
         po.setTest(arg);
-        po.setCreateTime((LocalDateTime) ThreadContext.get(REQUEST_TIME));
+        po.setCreateTime((LocalDateTime) RequestContext.get(REQUEST_TIME));
         return po;
     }
 

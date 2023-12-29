@@ -4,13 +4,10 @@ import cn.jruyi.core.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
-import java.net.InetAddress;
-
 /**
- * <h2></h2>
- *
  * @Date 2023/11/9 10:12
  */
 @Slf4j
@@ -18,29 +15,28 @@ import java.net.InetAddress;
 public class TestBoot
 {
     public static void main(String... args)
-            throws Throwable
     {
-        ConfigurableEnvironment env =
-                SpringApplication
-                        .run(TestBoot.class, args)
-                        .getEnvironment();
+        post(SpringApplication.run(TestBoot.class, args));
+    }
 
-        String hostAddress = InetAddress.getLocalHost().getHostAddress();
+    private static void post(ConfigurableApplicationContext context)
+    {
+        ConfigurableEnvironment env = context.getEnvironment();
 
-        String port = env.getProperty("server.port");
-        String appName = env.getProperty("spring.application.name");
+        String name = env.getProperty("spring.application.name");
+        String url = env.getProperty("common.module.url");
+        if (url == null) url = env.getProperty("common.project.url");
 
         log.info(
                 """
 
                         ----------------------------------------------------------------------
                         \t(♥◠‿◠)ﾉﾞ Application: [{}] runs successfully  ლ(´ڡ`ლ)ﾞ
-                        \tDocument: http://{}:{}/doc.html
+                        \tDocument: {}/doc.html
                         ----------------------------------------------------------------------
                         """,
-                ObjectUtil.DON(appName, "project"),
-                hostAddress,
-                ObjectUtil.DON(port, "8080")
+                ObjectUtil.DON(name, "-"),
+                url
         );
     }
 }

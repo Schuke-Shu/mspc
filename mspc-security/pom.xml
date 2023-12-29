@@ -2,36 +2,36 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>cn.mabbit.mspc</groupId>
-        <artifactId>mspc-parent</artifactId>
-        <version>1.0.0</version>
-    </parent>
+  <parent>
+    <groupId>cn.mabbit.mspc</groupId>
+    <artifactId>mspc-parent</artifactId>
+    <version>1.0.0</version>
+  </parent>
 
-    <artifactId>mspc-security</artifactId>
+  <artifactId>mspc-security</artifactId>
 
-    <description>Security 扩展包</description>
+  <description>Security 扩展包</description>
 
-    <dependencies>
-        <!-- Mspc core -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>mspc-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+  <dependencies>
+    <!-- Mspc core -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>mspc-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
-        <!-- JJWT（Java json web token） -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-        </dependency>
+    <!-- JJWT（Java json web token） -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+    </dependency>
 
-        <!-- Spring security -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-    </dependencies>
+    <!-- Spring security -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+  </dependencies>
 </project>

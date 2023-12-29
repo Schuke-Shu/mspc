@@ -2,32 +2,32 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>cn.mabbit.mspc</groupId>
-        <artifactId>mspc-parent</artifactId>
-        <version>1.0.0</version>
-    </parent>
+  <parent>
+    <groupId>cn.mabbit.mspc</groupId>
+    <artifactId>mspc-parent</artifactId>
+    <version>1.0.0</version>
+  </parent>
 
-    <artifactId>mspc-test</artifactId>
+  <artifactId>mspc-test</artifactId>
 
-    <description>测试扩展包</description>
+  <description>测试扩展包</description>
 
-    <dependencies>
-        <!-- Mspc bom -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>mspc-bom</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-            <optional>true</optional>
-        </dependency>
+  <dependencies>
+    <!-- Mspc bom -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>mspc-bom</artifactId>
+      <version>${project.version}</version>
+      <type>pom</type>
+      <optional>true</optional>
+    </dependency>
 
-        <!-- Spring boot test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-    </dependencies>
+    <!-- Spring boot test -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+    </dependency>
+  </dependencies>
 </project>

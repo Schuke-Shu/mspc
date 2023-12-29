@@ -1,11 +1,15 @@
 package cn.mabbit.mspc.core;
 
+import cn.mabbit.mspc.annotation.Initialize;
+import cn.mabbit.mspc.annotation.Load;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.HibernateValidator;
+import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -59,5 +63,21 @@ public class CoreConfig implements WebMvcConfigurer
 
         log.debug("配置快速失败");
         return validator;
+    }
+
+    @Bean
+    public CommonAnnotationBeanPostProcessor commonAnnotationBeanPostProcessor()
+    {
+        CommonAnnotationBeanPostProcessor processor = new CommonAnnotationBeanPostProcessor();
+        processor.addInitAnnotationType(Initialize.class);
+        return processor;
+    }
+
+    @Bean
+    public AutowiredAnnotationBeanPostProcessor autowiredAnnotationBeanPostProcessor()
+    {
+        AutowiredAnnotationBeanPostProcessor processor = new AutowiredAnnotationBeanPostProcessor();
+        processor.setAutowiredAnnotationType(Load.class);
+        return processor;
     }
 }

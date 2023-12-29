@@ -1,6 +1,7 @@
 package cn.mabbit.mspc.security;
 
 import cn.jruyi.core.util.StringUtil;
+import cn.mabbit.mspc.annotation.Load;
 import cn.mabbit.mspc.core.exception.ServiceException;
 import cn.mabbit.mspc.core.util.ServletUtil;
 import cn.mabbit.mspc.core.web.R;
@@ -12,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 @Slf4j
 @Component
-@Setter(onMethod_ = @Autowired)
+@Setter(onMethod_ = @Load)
 public class TokenFilter extends OncePerRequestFilter implements SecurityConsts
 {
     private SecurityService service;

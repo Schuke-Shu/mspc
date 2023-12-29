@@ -2,211 +2,212 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>cn.mabbit</groupId>
-        <artifactId>mabbit</artifactId>
-        <version>1</version>
-        <relativePath/>
-    </parent>
+  <parent>
+    <groupId>cn.mabbit</groupId>
+    <artifactId>mabbit</artifactId>
+    <version>1</version>
+    <relativePath/>
+  </parent>
 
-    <groupId>cn.mabbit.mspc</groupId>
-    <artifactId>mspc-parent</artifactId>
-    <version>1.0.0</version>
+  <groupId>cn.mabbit.mspc</groupId>
+  <artifactId>mspc-parent</artifactId>
+  <version>1.0.0</version>
 
-    <name>Mabbit spring project common</name>
-    <description>Mabbit spring 项目通用扩展包</description>
+  <name>Mabbit spring project common</name>
+  <description>Mabbit spring 项目通用扩展包</description>
 
-    <packaging>pom</packaging>
+  <packaging>pom</packaging>
 
-    <modules>
-        <module>mspc-bom</module>
-        <module>mspc-core</module>
-        <module>mspc-data</module>
-        <module>mspc-log</module>
-        <module>mspc-cache</module>
-        <module>mspc-security</module>
-        <module>mspc-test</module>
-        <module>test</module>
-    </modules>
+  <modules>
+    <module>mspc-annotation</module>
+    <module>mspc-bom</module>
+    <module>mspc-core</module>
+    <module>mspc-data</module>
+    <module>mspc-log</module>
+    <module>mspc-cache</module>
+    <module>mspc-security</module>
+    <module>mspc-test</module>
+    <module>test</module>
+  </modules>
 
-    <properties>
-        <jruyi.version>1.0.0</jruyi.version>
-        <lombok.version>1.18.30</lombok.version>
+  <properties>
+    <jruyi.version>1.0.0</jruyi.version>
+    <lombok.version>1.18.30</lombok.version>
 
-        <spring-boot.version>3.2.0</spring-boot.version>
+    <spring-boot.version>3.2.0</spring-boot.version>
 
-        <fastjson.version>2.0.25</fastjson.version>
-        <jjwt.version>0.9.1</jjwt.version>
-        <knife4j.version>4.3.0</knife4j.version>
-        <logback.version>1.4.14</logback.version>
-        <mybatis.version>3.0.3</mybatis.version>
-        <mysql.version>8.0.28</mysql.version>
-        <pagehelper.version>2.0.0</pagehelper.version>
-        <google.protobuf.version>3.21.12</google.protobuf.version>
-        <swagger.version>2.2.8</swagger.version>
-        <snakeyaml.version>2.0</snakeyaml.version>
-    </properties>
+    <fastjson.version>2.0.25</fastjson.version>
+    <jjwt.version>0.9.1</jjwt.version>
+    <knife4j.version>4.3.0</knife4j.version>
+    <logback.version>1.4.14</logback.version>
+    <mybatis.version>3.0.3</mybatis.version>
+    <mysql.version>8.0.28</mysql.version>
+    <pagehelper.version>2.0.0</pagehelper.version>
+    <google.protobuf.version>3.21.12</google.protobuf.version>
+    <swagger.version>2.2.8</swagger.version>
+    <snakeyaml.version>2.0</snakeyaml.version>
+  </properties>
 
+  <dependencies>
+    <!-- Lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+    </dependency>
+
+    <!-- Spring boot configuration processor -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
     <dependencies>
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-        </dependency>
+      <!-- JRuyi all -->
+      <dependency>
+        <groupId>cn.jruyi</groupId>
+        <artifactId>jruyi-all</artifactId>
+        <version>${jruyi.version}</version>
+      </dependency>
 
-        <!-- Spring boot configuration processor -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
+      <!-- JRuyi bom -->
+      <dependency>
+        <groupId>cn.jruyi</groupId>
+        <artifactId>jruyi-bom</artifactId>
+        <version>${jruyi.version}</version>
+        <type>pom</type>
+      </dependency>
+
+      <!-- Spring boot -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <type>pom</type>
+        <version>${spring-boot.version}</version>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- Alibaba fastjson -->
+      <dependency>
+        <groupId>com.alibaba.fastjson2</groupId>
+        <artifactId>fastjson2</artifactId>
+        <version>${fastjson.version}</version>
+      </dependency>
+
+      <!-- JJWT（Java json web token） -->
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>${jjwt.version}</version>
+      </dependency>
+
+      <!-- Knife4j -->
+      <dependency>
+        <groupId>com.github.xiaoymin</groupId>
+        <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+        <version>${knife4j.version}</version>
+      </dependency>
+
+      <!-- Logback classic -->
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+
+      <!-- Logback core -->
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+
+      <!-- Mybatis -->
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>${mybatis.version}</version>
+      </dependency>
+
+      <!-- Mysql -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+      </dependency>
+
+      <!-- PageHelper -->
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper-spring-boot-starter</artifactId>
+        <version>${pagehelper.version}</version>
+      </dependency>
+
+      <!-- Google protobuf -->
+      <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java</artifactId>
+        <version>${google.protobuf.version}</version>
+      </dependency>
+
+      <!-- Openapi3 annotation -->
+      <dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-annotations-jakarta</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
+
+      <!-- Snake yaml -->
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>${snakeyaml.version}</version>
+      </dependency>
     </dependencies>
+  </dependencyManagement>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- JRuyi all -->
-            <dependency>
-                <groupId>cn.jruyi</groupId>
-                <artifactId>jruyi-all</artifactId>
-                <version>${jruyi.version}</version>
-            </dependency>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring-boot.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
 
-            <!-- JRuyi bom -->
-            <dependency>
-                <groupId>cn.jruyi</groupId>
-                <artifactId>jruyi-bom</artifactId>
-                <version>${jruyi.version}</version>
-                <type>pom</type>
-            </dependency>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.*</include>
+        </includes>
+      </resource>
 
-            <!-- Spring boot -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <type>pom</type>
-                <version>${spring-boot.version}</version>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Alibaba fastjson -->
-            <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-
-            <!-- JJWT（Java json web token） -->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt.version}</version>
-            </dependency>
-
-            <!-- Knife4j -->
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-                <version>${knife4j.version}</version>
-            </dependency>
-
-            <!-- Logback classic -->
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-
-            <!-- Logback core -->
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-
-            <!-- Mybatis -->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis.version}</version>
-            </dependency>
-
-            <!-- Mysql -->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
-            </dependency>
-
-            <!-- PageHelper -->
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>${pagehelper.version}</version>
-            </dependency>
-
-            <!-- Google protobuf -->
-            <dependency>
-                <groupId>com.google.protobuf</groupId>
-                <artifactId>protobuf-java</artifactId>
-                <version>${google.protobuf.version}</version>
-            </dependency>
-
-            <!-- Openapi3 annotation -->
-            <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-annotations-jakarta</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-
-            <!-- Snake yaml -->
-            <dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>${snakeyaml.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring-boot.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>repackage</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-            </resource>
-
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <excludes>
-                    <exclude>application-*.yml</exclude>
-                </excludes>
-                <includes>
-                    <include>application.yml</include>
-                    <include>application-${root.env}.yml</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <excludes>
+          <exclude>application-*.yml</exclude>
+        </excludes>
+        <includes>
+          <include>application.yml</include>
+          <include>application-${root.env}.yml</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>

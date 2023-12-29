@@ -1,5 +1,7 @@
 package cn.mabbit.mspc.core;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +17,8 @@ import java.util.Set;
  * @see ApiAspect
  * @Date 2023-12-12 10:44
  */
-public class ThreadContext
+@Slf4j
+public class RequestContext
 {
     private static final Context CT = new Context();
 
@@ -46,10 +49,13 @@ public class ThreadContext
     }
     public static Object get(String key)
     {
-        return local().get(key);
+        Object value = local().get(key);
+        log.trace("\n获取请求上下文：\nkey【{}】\nvalue【{}】", key, value);
+        return value;
     }
     public static Object put(String key, Object value)
     {
+        log.trace("\n存储请求上下文：\nkey【{}】\nvalue【{}】", key, value);
         return local().put(key, value);
     }
     public static Object remove(String key)

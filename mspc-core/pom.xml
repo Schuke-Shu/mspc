@@ -2,66 +2,73 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>cn.mabbit.mspc</groupId>
-        <artifactId>mspc-parent</artifactId>
-        <version>1.0.0</version>
-    </parent>
+  <parent>
+    <groupId>cn.mabbit.mspc</groupId>
+    <artifactId>mspc-parent</artifactId>
+    <version>1.0.0</version>
+  </parent>
 
-    <artifactId>mspc-core</artifactId>
+  <artifactId>mspc-core</artifactId>
 
-    <description>核心扩展包</description>
+  <description>核心扩展包</description>
 
-    <dependencies>
-        <!-- Alibaba fastjson -->
-        <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-        </dependency>
+  <dependencies>
+    <!-- Mspc annotation -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>mspc-annotation</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
-        <!-- JRuyi bom -->
-        <dependency>
-            <groupId>cn.jruyi</groupId>
-            <artifactId>jruyi-bom</artifactId>
-            <type>pom</type>
-        </dependency>
+    <!-- Alibaba fastjson -->
+    <dependency>
+      <groupId>com.alibaba.fastjson2</groupId>
+      <artifactId>fastjson2</artifactId>
+    </dependency>
 
-        <!-- Openapi3 annotation -->
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations-jakarta</artifactId>
-        </dependency>
+    <!-- JRuyi bom -->
+    <dependency>
+      <groupId>cn.jruyi</groupId>
+      <artifactId>jruyi-bom</artifactId>
+      <type>pom</type>
+    </dependency>
 
-        <!-- Spring aop -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
+    <!-- Openapi3 annotation -->
+    <dependency>
+      <groupId>io.swagger.core.v3</groupId>
+      <artifactId>swagger-annotations-jakarta</artifactId>
+    </dependency>
 
-        <!-- Spring jdbc -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-        </dependency>
+    <!-- Spring aop -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
+    </dependency>
 
-        <!-- Spring tx -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-        </dependency>
+    <!-- Spring jdbc -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+    </dependency>
 
-        <!-- Spring validation -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
+    <!-- Spring tx -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+    </dependency>
 
-        <!-- Spring web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-    </dependencies>
+    <!-- Spring validation -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+    <!-- Spring web -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+  </dependencies>
 </project>

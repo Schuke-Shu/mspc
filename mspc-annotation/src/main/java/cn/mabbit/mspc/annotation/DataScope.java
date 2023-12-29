@@ -1,4 +1,4 @@
-package cn.mabbit.mspc.data;
+package cn.mabbit.mspc.annotation;
 
 
 import java.lang.annotation.Documented;

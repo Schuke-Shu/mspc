@@ -1,13 +1,11 @@
 package cn.mabbit.mspc.data;
 
-import jakarta.annotation.PostConstruct;
+import cn.mabbit.mspc.annotation.Initialize;
+import cn.mabbit.mspc.annotation.Load;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
@@ -20,10 +18,8 @@ import java.util.List;
 @Slf4j
 @Configuration
 @MapperScan("**.mapper")
-@Setter(onMethod_ = @Autowired)
-@EnableConfigurationProperties(DataProperties.class)
+@Setter(onMethod_ = @Load)
 public class DataConfig
-        implements InitializingBean
 {
     public DataConfig()
     {
@@ -31,26 +27,16 @@ public class DataConfig
     }
 
     private List<SqlSessionFactory> factories;
-    private DataProperties properties;
 
     // 配置 Mybatis 拦截器
-    @PostConstruct
+    @Initialize
     public void addInterceptor()
     {
+        log.debug("配置 Mybatis 拦截器");
         TimeInterceptor interceptor = new TimeInterceptor();
         for (SqlSessionFactory factory : factories)
             factory
                     .getConfiguration()
                     .addInterceptor(interceptor);
-    }
-
-    @Override
-    public void afterPropertiesSet()
-    {
-        PageUtil.setDefaultCount(
-                properties
-                        .getPage()
-                        .getDefaultCount()
-        );
     }
 }

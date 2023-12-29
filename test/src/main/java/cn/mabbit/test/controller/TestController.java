@@ -1,5 +1,6 @@
 package cn.mabbit.test.controller;
 
+import cn.mabbit.mspc.annotation.Load;
 import cn.mabbit.mspc.cache.CacheService;
 import cn.mabbit.mspc.core.exception.SystemException;
 import cn.mabbit.mspc.core.web.ServiceCode;
@@ -16,7 +17,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Slf4j
 @Web(path = "/test")
 @Tag(name = "测试")
-@Setter(onMethod_ = @Autowired)
+@Setter(onMethod_ = @Load(required = false))
 public class TestController
 {
     private TestService service;
@@ -38,6 +38,7 @@ public class TestController
     @Operation(summary = "测试方法", parameters = @Parameter(name = "arg"))
     public String test(@PathVariable Integer arg)
     {
+        System.out.println(service);
         return "Number: " + arg;
     }
 
@@ -57,7 +58,7 @@ public class TestController
     @Operation(parameters = @Parameter(name = "test", description = "测试"))
     public PageInfo<TestVO> page(TestDTO dto)
     {
-        return PageUtil.pagination(dto, () -> service.page(dto));
+        return PageUtil.pagination(dto, service::page);
     }
 
     @GetMapping("/cache/{arg}")

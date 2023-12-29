@@ -2,55 +2,59 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>cn.mabbit.mspc</groupId>
-        <artifactId>mspc-parent</artifactId>
-        <version>1.0.0</version>
-    </parent>
+  <parent>
+    <groupId>cn.mabbit.mspc</groupId>
+    <artifactId>mspc-parent</artifactId>
+    <version>1.0.0</version>
+  </parent>
 
-    <artifactId>test</artifactId>
+  <artifactId>test</artifactId>
 
-    <description>测试项目</description>
+  <description>测试项目</description>
 
-    <properties>
-        <root.name>test</root.name>
-        <root.description>测试</root.description>
-    </properties>
+  <properties>
+    <root.name>test</root.name>
+    <root.description>测试</root.description>
+  </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>mspc-test</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>mspc-test</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
-        <!-- Mspc bom -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>mspc-bom</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-        </dependency>
-    </dependencies>
+    <!-- Mspc bom -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>mspc-bom</artifactId>
+      <version>${project.version}</version>
+      <type>pom</type>
+    </dependency>
+  </dependencies>
 
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <root.env>dev</root.env>
-            </properties>
-        </profile>
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <properties>
+        <root.env>dev</root.env>
+      </properties>
+    </profile>
 
-        <profile>
-            <id>prod</id>
-            <properties>
-                <root.env>prod</root.env>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-    </profiles>
+    <profile>
+      <id>test</id>
+      <properties>
+        <root.env>test</root.env>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>prod</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+  </profiles>
 </project>

@@ -30,7 +30,7 @@ public class CommonProperties
      */
     private ProjectProperties project = new ProjectProperties();
     /**
-     * 模块信息
+     * 模块信息（微服务项目使用）
      */
     private ModuleProperties module = new ModuleProperties();
 
@@ -54,6 +54,10 @@ public class CommonProperties
          * 描述
          */
         private String description;
+        /**
+         * url
+         */
+        private String url;
     }
 
     @Getter
@@ -72,5 +76,9 @@ public class CommonProperties
          * 描述
          */
         private String description;
+        /**
+         * url
+         */
+        private String url;
     }
 }
