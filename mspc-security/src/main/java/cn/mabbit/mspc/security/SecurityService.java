@@ -1,12 +1,12 @@
 package cn.mabbit.mspc.security;
 
 import cn.jruyi.core.lang.Assert;
-import cn.mabbit.mspc.annotation.Load;
 import cn.mabbit.mspc.core.exception.ServiceException;
 import cn.mabbit.mspc.core.web.ServiceCode;
 import io.jsonwebtoken.*;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,13 +21,13 @@ import java.util.function.Consumer;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 /**
- * <h2></h2>
+ * <h2>安全服务</h2>
  *
  * @Date 2023/12/21 16:14
  */
 @Slf4j
 @Service
-@Setter(onMethod_ = @Load)
+@Setter(onMethod_ = @Autowired)
 public abstract class SecurityService
 {
     private SecurityProperties properties;

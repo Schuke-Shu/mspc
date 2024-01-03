@@ -1,7 +1,7 @@
 package cn.mabbit.mspc.cache;
 
-import cn.mabbit.mspc.annotation.Load;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @Date 2023/12/20 20:21
  */
 @Service
-@Setter(onMethod_ = @Load)
+@Setter(onMethod_ = @Autowired)
 public class CacheService
 {
     /**

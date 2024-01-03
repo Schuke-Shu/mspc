@@ -1,5 +1,6 @@
 package cn.mabbit.mspc.core;
 
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
@@ -22,6 +23,12 @@ public class SpringService implements BeanFactoryPostProcessor
      * Spring应用上下文环境
      */
     private ConfigurableListableBeanFactory factory;
+
+    public <T> T currentProxy(T invoker)
+    {
+        //noinspection unchecked
+        return (T) AopContext.currentProxy();
+    }
 
     /**
      * 通过bean名称获取bean

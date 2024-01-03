@@ -21,7 +21,6 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>mspc-annotation</module>
     <module>mspc-bom</module>
     <module>mspc-core</module>
     <module>mspc-data</module>
@@ -68,13 +67,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- JRuyi all -->
-      <dependency>
-        <groupId>cn.jruyi</groupId>
-        <artifactId>jruyi-all</artifactId>
-        <version>${jruyi.version}</version>
-      </dependency>
-
       <!-- JRuyi bom -->
       <dependency>
         <groupId>cn.jruyi</groupId>

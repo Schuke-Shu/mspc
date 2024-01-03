@@ -1,7 +1,7 @@
 package cn.mabbit.test.controller;
 
-import cn.mabbit.mspc.annotation.Load;
 import cn.mabbit.mspc.cache.CacheService;
+import cn.mabbit.mspc.core.SpringService;
 import cn.mabbit.mspc.core.exception.SystemException;
 import cn.mabbit.mspc.core.web.ServiceCode;
 import cn.mabbit.mspc.core.web.Web;
@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -28,11 +29,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Slf4j
 @Web(path = "/test")
 @Tag(name = "测试")
-@Setter(onMethod_ = @Load(required = false))
+@Setter(onMethod_ = @Autowired(required = false))
 public class TestController
 {
     private TestService service;
     private CacheService cacheService;
+    private SpringService springService;
+
+    @GetMapping("/aop")
+    public void aop()
+    {
+        System.out.println(this.getClass());
+        System.out.println(springService.currentProxy(this).getClass());
+    }
 
     @GetMapping("/demo/{arg}")
     @Operation(summary = "测试方法", parameters = @Parameter(name = "arg"))

@@ -1,7 +1,7 @@
 package cn.mabbit.mspc.security;
 
 /**
- * <h2>Security 常量池</h2>
+ * <h2>安全模块常量池</h2>
  *
  * @Date 2023/12/21 16:40
  */

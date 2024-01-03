@@ -15,11 +15,6 @@
   <description>扩展包清单</description>
 
   <dependencies>
-    <!-- Mspc annotation -->
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>mspc-annotation</artifactId>
-    </dependency>
     <!-- Mspc cache -->
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -54,12 +49,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- Mspc annotation -->
-      <dependency>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>mspc-annotation</artifactId>
-        <version>${project.version}</version>
-      </dependency>
       <!-- Mspc cache -->
       <dependency>
         <groupId>${project.groupId}</groupId>

@@ -1,8 +1,8 @@
 package cn.mabbit.mspc.security;
 
-import cn.mabbit.mspc.annotation.Load;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Slf4j
 @Configuration
 @EnableWebSecurity
-@Setter(onMethod_ = @Load)
+@Setter(onMethod_ = @Autowired)
 @EnableConfigurationProperties(SecurityProperties.class)
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig

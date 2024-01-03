@@ -9,7 +9,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * <h2>Security 配置</h2>
+ * <h2>安全配置</h2>
  *
  * @Date 2023/12/21 15:29
  */
@@ -32,7 +32,7 @@ public class SecurityProperties implements Serializable
     /**
      * token 配置
      */
-    private TokenProperties token = new TokenProperties();
+    private TokenProperties token;
 
     @Getter
     @Setter

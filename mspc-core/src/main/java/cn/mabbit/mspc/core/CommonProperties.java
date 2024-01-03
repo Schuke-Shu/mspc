@@ -28,11 +28,11 @@ public class CommonProperties
     /**
      * 项目信息
      */
-    private ProjectProperties project = new ProjectProperties();
+    private ProjectProperties project;
     /**
      * 模块信息（微服务项目使用）
      */
-    private ModuleProperties module = new ModuleProperties();
+    private ModuleProperties module;
 
     @Getter
     @Setter

@@ -1,11 +1,11 @@
 package cn.mabbit.mspc.data;
 
-import cn.mabbit.mspc.annotation.Initialize;
-import cn.mabbit.mspc.annotation.Load;
+import jakarta.annotation.PostConstruct;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 @Configuration
 @MapperScan("**.mapper")
-@Setter(onMethod_ = @Load)
+@Setter(onMethod_ = @Autowired)
 public class DataConfig
 {
     public DataConfig()
@@ -29,7 +29,7 @@ public class DataConfig
     private List<SqlSessionFactory> factories;
 
     // 配置 Mybatis 拦截器
-    @Initialize
+    @PostConstruct
     public void addInterceptor()
     {
         log.debug("配置 Mybatis 拦截器");

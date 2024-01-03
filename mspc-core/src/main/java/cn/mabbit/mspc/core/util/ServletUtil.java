@@ -3,7 +3,6 @@ package cn.mabbit.mspc.core.util;
 import com.alibaba.fastjson2.JSON;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -13,11 +12,10 @@ import java.util.Enumeration;
 import java.util.Map;
 
 /**
- * <h2>Servlet工具类</h2>
+ * <h2>Servlet 工具类</h2>
  *
  * @Date 2023/9/15 13:02
  */
-@Slf4j
 public abstract class ServletUtil
 {
     public static void responseJson(Object data)
@@ -31,11 +29,9 @@ public abstract class ServletUtil
             String jsonResult = JSON.toJSONString(data);
             writer.write(jsonResult);
             writer.flush();
-            log.debug("Response: {}", jsonResult);
         }
         catch (IOException e)
         {
-            log.error("Failed to send response data, msg: {}", e.getMessage());
             throw new RuntimeException(e);
         }
     }
