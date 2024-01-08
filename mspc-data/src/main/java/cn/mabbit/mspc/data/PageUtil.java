@@ -1,6 +1,5 @@
 package cn.mabbit.mspc.data;
 
-import cn.jruyi.core.lang.Action;
 import cn.mabbit.mspc.data.pojo.PageDTO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -75,7 +74,7 @@ public abstract class PageUtil extends PageHelper
      * @param <T>      数据列表元素类型
      * @return {@link PageInfo}
      */
-    public static <T> PageInfo<T> pagination(Integer pageNum, Integer pageSize, Integer navNum, Action selector)
+    public static <T> PageInfo<T> pagination(Integer pageNum, Integer pageSize, Integer navNum, Runnable selector)
     {
         return pagination(pageNum, pageSize, navNum, selector, (Consumer<Page<T>>) null);
     }
@@ -92,7 +91,7 @@ public abstract class PageUtil extends PageHelper
      * @return {@link PageInfo}
      */
     public static <T> PageInfo<T> pagination(
-            Integer pageNum, Integer pageSize, Integer navNum, Action selector, String orderBy
+            Integer pageNum, Integer pageSize, Integer navNum, Runnable selector, String orderBy
     )
     {
         return pagination(pageNum, pageSize, navNum, selector, page -> page.setOrderBy(orderBy));
@@ -110,11 +109,11 @@ public abstract class PageUtil extends PageHelper
      * @return {@link PageInfo}
      */
     public static <T> PageInfo<T> pagination(
-            Integer pageNum, Integer pageSize, Integer navNum, Action selector, Consumer<Page<T>> pageSetter
+            Integer pageNum, Integer pageSize, Integer navNum, Runnable selector, Consumer<Page<T>> pageSetter
     )
     {
         Page<T> page = start(pageNum, pageSize, pageSetter);
-        selector.go();
+        selector.run();
         return page(page, navNum);
     }
 
