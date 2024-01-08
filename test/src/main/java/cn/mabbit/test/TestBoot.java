@@ -1,6 +1,7 @@
 package cn.mabbit.test;
 
 import cn.jruyi.core.util.ObjectUtil;
+import cn.mabbit.mspc.core.CommonProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,19 +25,20 @@ public class TestBoot
         ConfigurableEnvironment env = context.getEnvironment();
 
         String name = env.getProperty("spring.application.name");
-        String url = env.getProperty("common.module.url");
-        if (url == null) url = env.getProperty("common.project.url");
+        CommonProperties common = context.getBean(CommonProperties.class);
 
         log.info(
                 """
 
                         ----------------------------------------------------------------------
                         \t(♥◠‿◠)ﾉﾞ Application: [{}] runs successfully  ლ(´ڡ`ლ)ﾞ
-                        \tDocument: {}/doc.html
+                        \tDocument: {}://{}:{}/doc.html
                         ----------------------------------------------------------------------
                         """,
                 ObjectUtil.DON(name, "-"),
-                url
+                common.getProtocol(),
+                common.getHost(),
+                common.getPort()
         );
     }
 }

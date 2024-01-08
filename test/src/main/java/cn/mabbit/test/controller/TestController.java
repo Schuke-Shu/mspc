@@ -1,8 +1,8 @@
 package cn.mabbit.test.controller;
 
-import cn.mabbit.mspc.cache.CacheService;
-import cn.mabbit.mspc.core.SpringService;
+import cn.mabbit.mspc.cache.CacheUtil;
 import cn.mabbit.mspc.core.exception.SystemException;
+import cn.mabbit.mspc.core.util.SpringUtil;
 import cn.mabbit.mspc.core.web.ServiceCode;
 import cn.mabbit.mspc.core.web.Web;
 import cn.mabbit.mspc.data.PageUtil;
@@ -33,14 +33,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class TestController
 {
     private TestService service;
-    private CacheService cacheService;
-    private SpringService springService;
+    private CacheUtil cacheUtil;
+    private SpringUtil springUtil;
 
     @GetMapping("/aop")
     public void aop()
     {
         System.out.println(this.getClass());
-        System.out.println(springService.currentProxy(this).getClass());
+        System.out.println(springUtil.getProxy(this).getClass());
     }
 
     @GetMapping("/demo/{arg}")
@@ -88,7 +88,7 @@ public class TestController
     {
         TestPO po = new TestPO();
         po.setTest("123456");
-        cacheService.set("test:::::t", po);
+        cacheUtil.set("test:::::t", po);
     }
 
     public void t1() {}

@@ -26,6 +26,18 @@ public class CommonProperties
     private static final long serialVersionUID = 1L;
 
     /**
+     * 协议名称
+     */
+    private String protocol = "http";
+    /**
+     * 主机地址
+     */
+    private String host = "127.0.0.1";
+    /**
+     * 端口
+     */
+    private Integer port = 8080;
+    /**
      * 项目信息
      */
     private ProjectProperties project;
@@ -54,10 +66,6 @@ public class CommonProperties
          * 描述
          */
         private String description;
-        /**
-         * url
-         */
-        private String url;
     }
 
     @Getter

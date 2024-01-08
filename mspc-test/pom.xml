@@ -15,14 +15,36 @@
   <description>测试扩展包</description>
 
   <dependencies>
-    <!-- Mspc bom -->
+    <!-- Mspc cache -->
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>mspc-bom</artifactId>
+      <artifactId>mspc-cache</artifactId>
       <version>${project.version}</version>
-      <type>pom</type>
-      <optional>true</optional>
     </dependency>
+    <!-- Mspc core -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>mspc-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <!-- Mspc data -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>mspc-data</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <!-- Mspc log -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>mspc-log</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <!-- Mspc security -->
+<!--    <dependency>-->
+<!--      <groupId>${project.groupId}</groupId>-->
+<!--      <artifactId>mspc-security</artifactId>-->
+<!--      <version>${project.version}</version>-->
+<!--    </dependency>-->
 
     <!-- Spring boot test -->
     <dependency>

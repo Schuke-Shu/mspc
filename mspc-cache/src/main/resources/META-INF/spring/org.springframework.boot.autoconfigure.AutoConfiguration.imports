@@ -1,2 +1,2 @@
 cn.mabbit.mspc.cache.CacheConfig
-cn.mabbit.mspc.cache.CacheService
+cn.mabbit.mspc.cache.CacheUtil

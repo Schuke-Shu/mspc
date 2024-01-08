@@ -26,8 +26,7 @@ public abstract class ServletUtil
 
         try (PrintWriter writer = res.getWriter())
         {
-            String jsonResult = JSON.toJSONString(data);
-            writer.write(jsonResult);
+            writer.write(JSON.toJSONString(data));
             writer.flush();
         }
         catch (IOException e)

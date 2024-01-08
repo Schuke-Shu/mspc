@@ -3,7 +3,7 @@ package cn.mabbit.mspc.security;
 import cn.jruyi.core.util.StringUtil;
 import cn.mabbit.mspc.core.exception.ServiceException;
 import cn.mabbit.mspc.core.util.ServletUtil;
-import cn.mabbit.mspc.core.web.R;
+import cn.mabbit.mspc.core.web.Result;
 import com.alibaba.fastjson2.JSON;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
@@ -64,7 +64,7 @@ public class TokenFilter extends OncePerRequestFilter implements SecurityConsts
         }
         catch (ServiceException e)
         {
-            ServletUtil.responseJson(R.fail(e));
+            ServletUtil.responseJson(Result.fail(e));
             return;
         }
 

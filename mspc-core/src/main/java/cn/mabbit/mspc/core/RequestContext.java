@@ -1,7 +1,10 @@
 package cn.mabbit.mspc.core;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
+import java.io.Closeable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,89 +21,98 @@ import java.util.Set;
  * @see ApiAspect
  */
 @Slf4j
-public class RequestContext
+@Component("requestContext")
+public class RequestContext implements Map<String, Object>, Closeable
 {
-    private static final Context CT = new Context();
+    private static final ThreadLocal<Map<String, Object>> CONTEXT = ThreadLocal.withInitial(HashMap::new);
 
     public static Map<String, Object> local()
     {
-        return CT.get();
+        return CONTEXT.get();
     }
 
-    static void clean()
+    @Override
+    public void close()
     {
-        CT.remove();
+        log.debug("清空请求上下文");
+        CONTEXT.remove();
     }
 
-    public static int size()
+    @Override
+    public int size()
     {
         return local().size();
     }
 
-    public static boolean isEmpty()
+    @Override
+    public boolean isEmpty()
     {
         return local().isEmpty();
     }
 
-    public static boolean containsKey(String key)
+    @Override
+    public boolean containsKey(Object key)
     {
         return local().containsKey(key);
     }
 
-    public static boolean containsValue(Object value)
+    @Override
+    public boolean containsValue(Object value)
     {
         return local().containsValue(value);
     }
 
-    public static Object get(String key)
+    @Override
+    public Object get(Object key)
     {
         Object value = local().get(key);
         log.trace("\n获取请求上下文：\nkey【{}】\nvalue【{}】", key, value);
         return value;
     }
 
-    public static Object put(String key, Object value)
+    @Override
+    public Object put(String key, Object value)
     {
         log.trace("\n存储请求上下文：\nkey【{}】\nvalue【{}】", key, value);
         return local().put(key, value);
     }
 
-    public static Object remove(String key)
+    @Override
+    public Object remove(Object key)
     {
         return local().remove(key);
     }
 
-    public static void putAll(Map<? extends String, ?> m)
+    @Override
+    public void putAll(@NonNull Map<? extends String, ?> m)
     {
         local().putAll(m);
     }
 
-    public static void clear()
+    @Override
+    public void clear()
     {
         local().clear();
     }
 
-    public static Set<String> keySet()
+    @NonNull
+    @Override
+    public Set<String> keySet()
     {
         return local().keySet();
     }
 
-    public static Collection<Object> values()
+    @NonNull
+    @Override
+    public Collection<Object> values()
     {
         return local().values();
     }
 
-    public static Set<Map.Entry<String, Object>> entrySet()
+    @NonNull
+    @Override
+    public Set<Map.Entry<String, Object>> entrySet()
     {
         return local().entrySet();
-    }
-
-    private static class Context extends ThreadLocal<Map<String, Object>>
-    {
-        @Override
-        protected Map<String, Object> initialValue()
-        {
-            return new HashMap<>();
-        }
     }
 }

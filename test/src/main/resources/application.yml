@@ -1,10 +1,10 @@
-#server:
-#  port: 10086
+server:
+  port: ${common.port}
 
 # Spring 配置
 spring:
   profiles:
-    active: @root.env@
+    active: ${root.env}
   application:
     name: ${common.project.name}
   datasource:
@@ -18,6 +18,9 @@ spring:
       load-on-startup: 1
     pathmatch:
       matching-strategy: ant_path_matcher
+  data:
+    redis:
+      host: localmabbit
 
 # MyBatis 配置
 mybatis:
@@ -36,17 +39,21 @@ logging:
 
 # 自定义配置项
 common:
+  # 主机地址
+  host: 192.168.111.36
+  #端口
+  port: 8080
   # 项目信息
   project:
     # 名称
-    name: @root.name@
+    name: ${root.name}
     # 版本
-    version: @project.version@
+    version: ${project.version}
     # 描述
-    description: @root.description@
+    description: ${root.description}
   # 模块信息
   module:
     # 名称
-    name: @project.artifactId@
+    name: ${project.name}
     # 描述
-    description: @project.description@
+    description: ${project.description}

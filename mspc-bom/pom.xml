@@ -10,6 +10,8 @@
     <version>1.0.0</version>
   </parent>
 
+  <packaging>pom</packaging>
+
   <artifactId>mspc-bom</artifactId>
 
   <description>扩展包清单</description>
@@ -44,6 +46,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>mspc-test</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

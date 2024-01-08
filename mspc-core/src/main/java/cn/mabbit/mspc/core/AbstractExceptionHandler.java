@@ -4,7 +4,7 @@ import cn.jruyi.core.util.ClassUtil;
 import cn.mabbit.mspc.core.consts.GlobalConsts;
 import cn.mabbit.mspc.core.exception.ServiceException;
 import cn.mabbit.mspc.core.exception.SystemException;
-import cn.mabbit.mspc.core.web.JsonResult;
+import cn.mabbit.mspc.core.web.Result;
 import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;
 
-import static cn.mabbit.mspc.core.web.R.fail;
+import static cn.mabbit.mspc.core.web.Result.fail;
 import static cn.mabbit.mspc.core.web.ServiceCode.*;
 
 /**
@@ -44,6 +44,7 @@ import static cn.mabbit.mspc.core.web.ServiceCode.*;
  * @see DefaultGlobalExceptionHandler
  * @Date 2023/10/09 18:15
  */
+@SuppressWarnings("rawtypes")
 public abstract class AbstractExceptionHandler
 {
     protected static Logger log;
@@ -60,7 +61,7 @@ public abstract class AbstractExceptionHandler
                     DataIntegrityViolationException.class
             }
     )
-    public JsonResult<Object> handleDatabaseException(Throwable e)
+    public Result handleDatabaseException(Throwable e)
     {
 //        printStack(e);
         if (log.isDebugEnabled())
@@ -69,7 +70,7 @@ public abstract class AbstractExceptionHandler
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public JsonResult<Object> handleValidException(ConstraintViolationException e)
+    public Result handleValidException(ConstraintViolationException e)
     {
 //        printStack(e);
         if (log.isDebugEnabled())
@@ -99,7 +100,7 @@ public abstract class AbstractExceptionHandler
                     MethodArgumentNotValidException.class
             }
     )
-    public JsonResult<Object> handleValidException(Throwable e)
+    public Result handleValidException(Throwable e)
     {
         if (log.isDebugEnabled())
             log.debug("-- Valid error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
@@ -107,14 +108,14 @@ public abstract class AbstractExceptionHandler
     }
 
     @ExceptionHandler(SystemException.class)
-    public JsonResult<Object> handleSystemException(SystemException e)
+    public Result handleSystemException(SystemException e)
     {
         log.warn("System error: {} - {}, detail: {}", e.code().hex(), e.code().msg(), e.detail());
         return fail(ERR_UNKNOWN);
     }
 
     @ExceptionHandler(ServiceException.class)
-    public JsonResult<Object> handleServiceException(ServiceException e)
+    public Result handleServiceException(ServiceException e)
     {
         if (log.isDebugEnabled())
             log.debug("Service error: {} - {}, detail: {}", e.code().hex(), e.code().msg(), e.detail());
@@ -122,14 +123,14 @@ public abstract class AbstractExceptionHandler
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
-    public JsonResult<Object> handleNoResourceFoundException(NoResourceFoundException e)
+    public Result handleNoResourceFoundException(NoResourceFoundException e)
     {
         log.debug("Error: {}\nmsg:\n{}", ClassUtil.getTypeName(e), e.getMessage());
         return fail(ERR_NOT_FOUND);
     }
 
     @ExceptionHandler(Throwable.class)
-    public JsonResult<Object> handleUnknownException(Throwable e)
+    public Result handleUnknownException(Throwable e)
             throws RuntimeException
     {
         handleUnknownError(e);

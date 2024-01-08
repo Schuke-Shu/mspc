@@ -1,6 +1,6 @@
 package cn.mabbit.mspc.data;
 
-import cn.mabbit.mspc.core.RequestContext;
+import cn.mabbit.mspc.core.BaseRequestContextHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
@@ -11,8 +11,6 @@ import java.sql.Connection;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static cn.mabbit.mspc.core.consts.KeyConsts.REQUEST_TIME;
 
 /**
  * <h2>基于 MyBatis 的自动插入时间拦截器</h2>
@@ -63,22 +61,26 @@ public class TimeInterceptor
      * 查询SQL语句片段的正则表达式：modified_time片段
      */
     private static final Pattern SQL_STATEMENT_PATTERN_MODIFIED = Pattern.compile(
-            ",\\s*" + FIELD_MODIFIED + "\\s*=", Pattern.CASE_INSENSITIVE);
+            ",\\s*" + FIELD_MODIFIED + "\\s*=", Pattern.CASE_INSENSITIVE
+    );
     /**
      * 查询SQL语句片段的正则表达式：create_time片段
      */
     private static final Pattern SQL_STATEMENT_PATTERN_CREATE = Pattern.compile(
-            ",\\s*" + FIELD_CREATE + "\\s*[,)]?", Pattern.CASE_INSENSITIVE);
+            ",\\s*" + FIELD_CREATE + "\\s*[,)]?", Pattern.CASE_INSENSITIVE
+    );
     /**
      * 查询SQL语句片段的正则表达式：WHERE子句
      */
     private static final Pattern SQL_STATEMENT_PATTERN_WHERE = Pattern.compile(
-            "\\s+where\\s+", Pattern.CASE_INSENSITIVE);
+            "\\s+where\\s+", Pattern.CASE_INSENSITIVE
+    );
     /**
      * 查询SQL语句片段的正则表达式：VALUES子句
      */
     private static final Pattern SQL_STATEMENT_PATTERN_VALUES = Pattern.compile(
-            "\\)\\s*values?\\s*\\(", Pattern.CASE_INSENSITIVE);
+            "\\)\\s*values?\\s*\\(", Pattern.CASE_INSENSITIVE
+    );
 
     @Override
     public Object intercept(Invocation invocation)
@@ -136,7 +138,7 @@ public class TimeInterceptor
         // 定义查找参数值位置的 正则表达 “)”
         Matcher paramPositionMatcher = Pattern.compile("\\)").matcher(sql);
         // 从 ) values ( 的后面位置 end 开始查找 结束括号的位置
-        String param = ", '" + RequestContext.get(REQUEST_TIME) + "'";
+        String param = ", '" + BaseRequestContextHandler.requestTime() + "'";
         int position = end + fieldNames.length();
         while (paramPositionMatcher.find(position))
         {
@@ -169,7 +171,7 @@ public class TimeInterceptor
         Matcher matcher = SQL_STATEMENT_PATTERN_WHERE.matcher(sql);
         // 查找 where 子句的位置
         if (!matcher.find()) return null;
-        sql.insert(matcher.start(), ", " + FIELD_MODIFIED + "='" + RequestContext.get(REQUEST_TIME) + "'");
+        sql.insert(matcher.start(), ", " + FIELD_MODIFIED + "='" + BaseRequestContextHandler.requestTime() + "'");
 
         return sql.toString();
     }

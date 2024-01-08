@@ -2,12 +2,10 @@ package cn.mabbit.mspc.log;
 
 import cn.jruyi.core.util.ArrayUtil;
 import cn.jruyi.core.util.ClassUtil;
-import cn.mabbit.mspc.core.RequestContext;
-import cn.mabbit.mspc.core.consts.KeyConsts;
+import cn.mabbit.mspc.core.BaseRequestContextHandler;
 import cn.mabbit.mspc.core.exception.BaseException;
 import cn.mabbit.mspc.core.util.IpUtil;
 import cn.mabbit.mspc.core.util.ServletUtil;
-import cn.mabbit.mspc.core.web.ServiceCode;
 import cn.mabbit.mspc.log.enums.Status;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONWriter;
@@ -23,7 +21,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Parameter;
-import java.time.LocalDateTime;
 import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
 
@@ -43,15 +40,15 @@ public class LogAspect
 
     public LogAspect()
     {
-        log.debug("日志模块上线");
+        log.info("日志模块上线");
     }
 
-    @Around("@annotation(anno)")
-    public Object log(ProceedingJoinPoint point, Log anno) throws Throwable
+    @Around(value = "@annotation(log)")
+    public Object log(ProceedingJoinPoint point, Log log) throws Throwable
     {
         // 初始化日志对象
-        SysLog record = initLog(anno);
-        if (anno.recordParams()) recordParams(record, point);
+        SysLog record = initLog(log);
+        if (log.recordParams()) recordParams(record, point);
         // 声明结果
         Object result;
 
@@ -61,7 +58,7 @@ public class LogAspect
             // 放行
             result = point.proceed();
             // api 请求成功，记录后续结果
-            success(record, anno, result);
+            success(record, log, result);
         }
         catch (Throwable e)
         {
@@ -75,33 +72,33 @@ public class LogAspect
                             System.currentTimeMillis() - start
                     )
             );
-            log.debug("日志：{}", record);
+            LogAspect.log.trace("日志：{}", record);
             service.record(record);
         }
 
         return result;
     }
 
-    private SysLog initLog(Log anno)
+    private SysLog initLog(Log log)
     {
-        log.debug("初始化日志对象");
         SysLog record = new SysLog();
 
-        record.setTitle(anno.title());
-        record.setDescription(anno.description());
-        record.setOperatorType(anno.operation());
+        record.setTitle(log.title());
+        record.setDescription(log.description());
+        record.setOperatorType(log.operation());
         record.setMethod(ServletUtil.getMethod());
         record.setUri(ServletUtil.getRequestURI());
         record.setIp(IpUtil.getIp());
-        record.setBusinessType(anno.businessType());
-        record.setCreateTime((LocalDateTime) RequestContext.get(KeyConsts.REQUEST_TIME));
+        record.setBusinessType(log.businessType());
+        record.setCreateTime(BaseRequestContextHandler.requestTime());
 
+        LogAspect.log.debug("初始化日志对象: \n{}", record);
         return record;
     }
 
-    private void success(SysLog record, Log anno, Object result)
+    private void success(SysLog record, Log log, Object result)
     {
-        if (anno.recordResult() && result != null)
+        if (log.recordResult() && result != null)
             record.setResult(JSON.toJSONString(result));
         record.setStatus(Status.SUCCESS);
     }
@@ -111,9 +108,8 @@ public class LogAspect
         // TODO JRuyi ClassUtil
         if (e instanceof BaseException base)
         {
-            ServiceCode code = base.code();
-            record.setErrorCode(code);
-            record.setErrorMsg(code.msg());
+            record.setErrorCode(base.code());
+            record.setErrorMsg(base.code().msg());
         }
 
         record.setErrorType(ClassUtil.getTypeName(e));
@@ -123,7 +119,7 @@ public class LogAspect
     private void recordParams(SysLog record, ProceedingJoinPoint point)
     {
         Object[] args = point.getArgs();
-        if (noArg(args)) return;
+        if (isNonArg(args)) return;
 
         StringJoiner joiner = new StringJoiner(",");
         // TODO JRuyi 反射
@@ -148,7 +144,7 @@ public class LogAspect
         record.setParams(joiner.toString());
     }
 
-    private boolean noArg(Object[] args)
+    private boolean isNonArg(Object[] args)
     {
         if (ArrayUtil.isEmpty(args)) return true;
 
@@ -164,6 +160,7 @@ public class LogAspect
 
     private String computeCastTime(long time)
     {
+        // TODO JRuyi TimeUtil
         TimeUnit unit = TimeUnit.MILLISECONDS;
         if (time > 1000 * 60 * 60) return unit.toHours(time) + "h";
         if (time > 1000 * 60) return unit.toMinutes(time) + "m";
