@@ -20,7 +20,7 @@ import java.io.Serial;
 @Getter
 @Setter
 @ToString
-public class SysLog extends BasePO<Long>
+public class SysLog extends BasePO
 {
     @Serial
     private static final long serialVersionUID = 1L;

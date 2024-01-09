@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * <h2>业务状态码</h2>
  *
- * @Date 2023/10/09 18:15
+ * @Date 2023-10-09 18:15
  */
 public enum ServiceCode implements Serializable
 {

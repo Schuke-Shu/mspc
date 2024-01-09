@@ -9,8 +9,7 @@ package cn.mabbit.mspc.core;
  *     <ul>若为对象，检查对象是否为 {@code null}</ul>
  * </p>
  *
- * @author 一只枫兔
- * @Date 2023/10/11 9:00
+ * @Date 2023-10-11 9:00
  */
 public enum Bool
 {

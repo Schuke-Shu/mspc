@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * <h2>通用配置</h2>
  *
- * @Date 2023/10/9 18:20
+ * @Date 2023-10-09 18:20
  */
 @Getter
 @Setter

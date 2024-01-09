@@ -8,7 +8,7 @@ import java.io.Serial;
 /**
  * <h2>业务异常</h2>
  *
- * @Date 2023/10/09 18:15
+ * @Date 2023-10-09 18:15
  */
 @Getter
 public class ServiceException

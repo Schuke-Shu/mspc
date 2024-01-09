@@ -2,18 +2,16 @@ package cn.mabbit.mspc.data.mapper;
 
 import cn.mabbit.mspc.data.pojo.BasePO;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 /**
  * <h2>mapper基础模板</h2>
  *
- * @param <K> 主键类型
  * @param <E> 实体类型
  * @Date 2023-11-29 9:46
  */
-public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
+public interface BaseMapper<E extends BasePO>
 {
     /**
      * 新增一条数据
@@ -34,10 +32,10 @@ public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
     /**
      * 根据主键删除一条数据
      *
-     * @param k 主键
+     * @param id 主键
      * @return 删除成功数量
      */
-    int removeById(K k);
+    int removeById(Long id);
 
     /**
      * 根据主键数组批量删除数据
@@ -45,7 +43,7 @@ public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
      * @param list 主键数组
      * @return 删除成功数量
      */
-    int removeBatch(Collection<K> list);
+    int removeBatch(Collection<Long> list);
 
     /**
      * 编辑一条数据
@@ -58,10 +56,10 @@ public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
     /**
      * 根据主键查询数据
      *
-     * @param k 主键
+     * @param id 主键
      * @return 实体数据
      */
-    E queryById(K k);
+    E queryById(Long id);
 
     /**
      * 条件查询
@@ -84,7 +82,7 @@ public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
      * @param list 主键列表
      * @return 实体数据列表
      */
-    List<E> listByIds(Collection<K> list);
+    List<E> listByIds(Collection<Long> list);
 
     /**
      * @return 表中数据总量
@@ -94,8 +92,8 @@ public interface BaseMapper<K extends Serializable, E extends BasePO<K>>
     /**
      * 根据主键统计表中数据量
      *
-     * @param k 主键
+     * @param id 主键
      * @return 数据量
      */
-    int countById(K k);
+    int countById(Long id);
 }

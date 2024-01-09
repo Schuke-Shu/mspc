@@ -5,7 +5,7 @@ import cn.mabbit.mspc.core.web.ServiceCode;
 /**
  * <h2>异常基类</h2>
  *
- * @Date 2023/10/09 18:15
+ * @Date 2023-10-09 18:15
  */
 public abstract class BaseException
         extends RuntimeException

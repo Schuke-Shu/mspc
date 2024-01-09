@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * <h2>核心配置</h2>
  *
- * @Date 2023/10/09 18:15
+ * @Date 2023-10-09 18:15
  */
 @Slf4j
 @Configuration

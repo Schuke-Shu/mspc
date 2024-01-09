@@ -42,7 +42,7 @@ import static cn.mabbit.mspc.core.web.ServiceCode.*;
  * }</pre></p>
  *
  * @see DefaultGlobalExceptionHandler
- * @Date 2023/10/09 18:15
+ * @Date 2023-10-09 18:15
  */
 @SuppressWarnings("rawtypes")
 public abstract class AbstractExceptionHandler

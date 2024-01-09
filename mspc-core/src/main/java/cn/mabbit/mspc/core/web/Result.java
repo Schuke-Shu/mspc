@@ -7,7 +7,9 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * @Date 2023/10/09 18:15
+ * <h2>响应结果</h2>
+ *
+ * @Date 2023-10-09 18:15
  */
 @SuppressWarnings("rawtypes")
 @Schema(name = "result", title = "JSON数据", description = "restful风格JSON数据")

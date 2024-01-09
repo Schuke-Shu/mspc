@@ -28,16 +28,13 @@ import java.util.regex.Pattern;
  */
 @Slf4j
 @Intercepts(
-        {
-                @Signature(
-                        type = StatementHandler.class,
-                        method = "prepare",
-                        args = {Connection.class, Integer.class}
-                )
-        }
+        @Signature(
+                type = StatementHandler.class,
+                method = "prepare",
+                args = {Connection.class, Integer.class}
+        )
 )
-public class TimeInterceptor
-        implements Interceptor
+public class TimeInterceptor implements Interceptor
 {
     public static final String SQL_FIELD = "sql";
 

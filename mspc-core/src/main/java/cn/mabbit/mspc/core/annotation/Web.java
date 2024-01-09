@@ -1,4 +1,4 @@
-package cn.mabbit.mspc.core.web;
+package cn.mabbit.mspc.core.annotation;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.validation.annotation.Validated;
@@ -19,7 +19,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *
  * <p>组合了 {@link Validated}、{@link RestController}、{@link RequestMapping}</p>
  *
- * @Date 2023/11/3 10:01
+ * @Date 2023-11-03 10:01
  */
 @Target(TYPE)
 @Retention(RUNTIME)

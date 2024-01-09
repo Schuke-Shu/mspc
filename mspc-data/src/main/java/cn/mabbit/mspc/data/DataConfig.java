@@ -28,12 +28,13 @@ public class DataConfig
 
     private List<SqlSessionFactory> factories;
 
+    private static final TimeInterceptor interceptor = new TimeInterceptor();
+
     // 配置 Mybatis 拦截器
     @PostConstruct
     public void addInterceptor()
     {
         log.debug("配置 Mybatis 拦截器");
-        TimeInterceptor interceptor = new TimeInterceptor();
         for (SqlSessionFactory factory : factories)
             factory
                     .getConfiguration()

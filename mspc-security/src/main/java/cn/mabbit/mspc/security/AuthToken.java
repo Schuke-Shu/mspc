@@ -11,7 +11,7 @@ import java.util.Collection;
 /**
  * <h2>认证令牌</h2>
  *
- * @Date 2023/12/25 13:20
+ * @Date 2023-12-25 13:20
  */
 public class AuthToken extends AbstractAuthenticationToken
 {

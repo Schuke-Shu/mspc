@@ -3,7 +3,7 @@ package cn.mabbit.mspc.core.consts;
 /**
  * <h2>全局常量接口</h2>
  *
- * @Date 2023/10/09 18:15
+ * @Date 2023-10-09 18:15
  */
 public interface GlobalConsts
 {

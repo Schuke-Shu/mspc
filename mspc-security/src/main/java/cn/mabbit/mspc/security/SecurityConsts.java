@@ -3,7 +3,7 @@ package cn.mabbit.mspc.security;
 /**
  * <h2>安全模块常量池</h2>
  *
- * @Date 2023/12/21 16:40
+ * @Date 2023-12-21 16:40
  */
 public interface SecurityConsts
 {

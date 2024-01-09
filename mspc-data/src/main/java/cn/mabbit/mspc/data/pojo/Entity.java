@@ -1,8 +1,7 @@
 package cn.mabbit.mspc.data.pojo;
 
-import cn.jruyi.core.lang.Bool;
+import cn.mabbit.mspc.core.Bool;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -10,8 +9,7 @@ import java.time.LocalDateTime;
  *
  * @Date 2023-12-14 10:52
  */
-public interface Entity<K extends Serializable>
-        extends PO<K>
+public interface Entity extends PO
 {
     /**
      * @return 状态

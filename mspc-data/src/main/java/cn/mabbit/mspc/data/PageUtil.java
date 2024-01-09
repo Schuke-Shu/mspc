@@ -140,6 +140,9 @@ public abstract class PageUtil extends PageHelper
         return start(pageNum, pageSize, page -> page.setOrderBy(orderBy));
     }
 
+    private static final int ONE_PER_PAGE = 1;
+    private static final int NO_ELEMENT = 0;
+
     /**
      * 开始分页
      *
@@ -150,8 +153,8 @@ public abstract class PageUtil extends PageHelper
     public static <E> Page<E> start(Integer pageNum, Integer pageSize, Consumer<Page<E>> pageSetter)
     {
         Page<E> page = startPage(
-                DON(pageNum, 1),
-                DON(pageSize, 0)
+                DON(pageNum, ONE_PER_PAGE),
+                DON(pageSize, NO_ELEMENT)
         );
         if (pageSetter != null) pageSetter.accept(page);
 
@@ -178,11 +181,12 @@ public abstract class PageUtil extends PageHelper
     public static <T> PageInfo<T> page(List<T> list, Integer navNum)
     {
         log.debug("获取分页数据，导航页数【{}】", navNum);
-        return navNum == null ?
-                new PageInfo<>(list) :
-                new PageInfo<>(
-                        list,
-                        DON(navNum, PageInfo.DEFAULT_NAVIGATE_PAGES)
-                );
+        return
+                navNum == null ?
+                        new PageInfo<>(list) :
+                        new PageInfo<>(
+                                list,
+                                DON(navNum, PageInfo.DEFAULT_NAVIGATE_PAGES)
+                        );
     }
 }

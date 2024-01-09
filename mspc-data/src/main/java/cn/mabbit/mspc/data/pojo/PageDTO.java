@@ -7,18 +7,41 @@ import java.io.Serializable;
  *
  * @Date 2023-12-14 11:07
  */
-public interface PageDTO
-        extends Serializable
+public interface PageDTO extends Serializable
 {
+    /**
+     * @return 当前页
+     */
     Integer getPageNum();
 
-    void setPageNum(Integer num);
-
+    /**
+     * @return 每页元素数
+     */
     Integer getPageSize();
 
-    void setPageSize(Integer size);
-
+    /**
+     * @return 导航页数
+     */
     Integer getNavNum();
 
+    /**
+     * 设置当前页
+     *
+     * @param num 当前页
+     */
+    void setPageNum(Integer num);
+
+    /**
+     * 设置每页元素数
+     *
+     * @param size 每页元素数
+     */
+    void setPageSize(Integer size);
+
+    /**
+     * 设置导航页数
+     *
+     * @param num 导航页数
+     */
     void setNavNum(Integer num);
 }

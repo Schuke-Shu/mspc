@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:redis://localmabbit:6379/0</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="mysql@localmabbit" uuid="8867961d-caaa-4d7b-a020-5d12c0789a71">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localmabbit:3306/mysql?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=Asia/Chongqing</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

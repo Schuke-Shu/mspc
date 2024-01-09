@@ -11,7 +11,7 @@ import lombok.*;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class TestPO extends BasePO<Long>
+public class TestPO extends BasePO
 {
     private String test;
 }

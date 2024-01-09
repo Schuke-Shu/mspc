@@ -9,7 +9,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
- * @Date 2023/11/9 10:12
+ * @Date 2023-11-09 10:12
  */
 @Slf4j
 @SpringBootApplication

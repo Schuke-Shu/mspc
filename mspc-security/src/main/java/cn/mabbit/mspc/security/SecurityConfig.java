@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 /**
  * <h2>Security 模块配置</h2>
  *
- * @Date 2023/12/21 15:25
+ * @Date 2023-12-21 15:25
  */
 @Slf4j
 @Configuration
@@ -47,8 +47,7 @@ public class SecurityConfig
     }
 
     @Bean
-    protected SecurityFilterChain securityFilterChain(HttpSecurity http)
-            throws Exception
+    protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         return
                 http

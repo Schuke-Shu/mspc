@@ -7,7 +7,7 @@ import java.io.Serial;
 /**
  * <h2>系统异常</h2>
  *
- * @Date 2023/12/21 19:43
+ * @Date 2023-12-21 19:43
  */
 public class SystemException extends BaseException
 {

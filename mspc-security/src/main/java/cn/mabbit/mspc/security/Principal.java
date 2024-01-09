@@ -5,7 +5,7 @@ import io.jsonwebtoken.Claims;
 /**
  * <h2>当事人</h2>
  *
- * @Date 2023/12/25 12:15
+ * @Date 2023-12-25 12:15
  */
 public class Principal
 {

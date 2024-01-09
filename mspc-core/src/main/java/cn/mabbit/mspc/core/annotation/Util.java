@@ -13,7 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * <h2>工具组件标记</h2>
  *
- * @Date 2024/1/4 17:55
+ * @Date 2024-01-04 17:55
  */
 @Component
 @Documented

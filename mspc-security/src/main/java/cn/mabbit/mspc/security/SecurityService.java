@@ -23,7 +23,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 /**
  * <h2>安全服务</h2>
  *
- * @Date 2023/12/21 16:14
+ * @Date 2023-12-21 16:14
  */
 @Slf4j
 @Service

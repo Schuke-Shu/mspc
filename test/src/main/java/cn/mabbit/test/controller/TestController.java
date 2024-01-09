@@ -1,10 +1,10 @@
 package cn.mabbit.test.controller;
 
 import cn.mabbit.mspc.cache.CacheUtil;
+import cn.mabbit.mspc.core.annotation.Web;
 import cn.mabbit.mspc.core.exception.SystemException;
 import cn.mabbit.mspc.core.util.SpringUtil;
 import cn.mabbit.mspc.core.web.ServiceCode;
-import cn.mabbit.mspc.core.web.Web;
 import cn.mabbit.mspc.data.PageUtil;
 import cn.mabbit.test.pojo.TestPO;
 import cn.mabbit.test.pojo.dto.TestDTO;
@@ -24,11 +24,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 /**
  * <h2></h2>
  *
- * @Date 2023/11/9 10:14
+ * @Date 2023-11-09 10:14
  */
 @Slf4j
-@Web(path = "/test")
 @Tag(name = "测试")
+@Web(path = "/test")
 @Setter(onMethod_ = @Autowired(required = false))
 public class TestController
 {
